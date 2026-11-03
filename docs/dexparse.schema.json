@@ -1,0 +1,155 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "dexparse.document/v1",
+  "title": "DexParse document",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "schemaVersion", "generator", "source", "segments", "diagnostics", "validation", "playback"],
+  "properties": {
+    "schema": { "const": "dexparse.document/v1" },
+    "schemaVersion": { "const": "1.0.0" },
+    "generator": {
+      "enum": ["dexparse-deterministic", "dexparse-deterministic+ollama-accepted"]
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["revision", "text", "sha256", "charCount", "newline", "encoding"],
+      "properties": {
+        "revision": { "type": "integer", "minimum": 1 },
+        "text": { "type": "string" },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "charCount": { "type": "integer", "minimum": 0 },
+        "newline": { "enum": ["lf", "crlf", "cr", "mixed", "none"] },
+        "encoding": { "const": "utf-8" }
+      }
+    },
+    "segments": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/segment" }
+    },
+    "diagnostics": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/diagnostic" }
+    },
+    "validation": { "$ref": "#/$defs/validation" },
+    "playback": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/playback" }
+    }
+  },
+  "$defs": {
+    "kind": {
+      "enum": [
+        "dialogue",
+        "scene_heading",
+        "title",
+        "pause",
+        "sfx",
+        "music",
+        "ambience",
+        "narration",
+        "blank",
+        "formatting",
+        "sequence",
+        "unknown",
+        "ambiguous"
+      ]
+    },
+    "diagnostic": {
+      "type": "object",
+      "required": ["code", "severity", "message"],
+      "properties": {
+        "code": { "type": "string" },
+        "severity": { "enum": ["info", "warning", "error"] },
+        "message": { "type": "string" },
+        "segmentId": { "type": "string" },
+        "start": { "type": "integer" },
+        "end": { "type": "integer" }
+      }
+    },
+    "segment": {
+      "type": "object",
+      "required": ["id", "kind", "raw", "start", "end", "line", "column", "warnings", "origin"],
+      "properties": {
+        "id": { "type": "string" },
+        "kind": { "$ref": "#/$defs/kind" },
+        "raw": { "type": "string" },
+        "start": { "type": "integer", "minimum": 0 },
+        "end": { "type": "integer", "minimum": 0 },
+        "line": { "type": "integer", "minimum": 1 },
+        "column": { "type": "integer", "minimum": 1 },
+        "speaker": { "type": "string" },
+        "delivery": { "type": "string" },
+        "cueType": { "enum": ["pause", "sfx", "music", "ambience"] },
+        "detail": { "type": "string" },
+        "durationMs": { "type": "integer" },
+        "location": { "type": "string" },
+        "timeOfDay": { "type": "string" },
+        "headingLevel": { "type": "integer" },
+        "contentStart": { "type": "integer" },
+        "warnings": { "type": "array", "items": { "$ref": "#/$defs/diagnostic" } },
+        "ambiguous": { "type": "boolean" },
+        "origin": { "enum": ["deterministic", "ollama-accepted"] },
+        "children": { "type": "array", "items": { "$ref": "#/$defs/segment" } }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "required": [
+        "sourceChars",
+        "accountedChars",
+        "classifiedChars",
+        "unclassifiedChars",
+        "coverageComplete",
+        "reconstructedMatches",
+        "gaps",
+        "overlaps",
+        "ambiguityCount",
+        "unknownCount",
+        "warningCount",
+        "errorCount",
+        "status"
+      ],
+      "properties": {
+        "sourceChars": { "type": "integer" },
+        "accountedChars": { "type": "integer" },
+        "classifiedChars": { "type": "integer" },
+        "unclassifiedChars": { "type": "integer" },
+        "coverageComplete": { "type": "boolean" },
+        "reconstructedMatches": { "type": "boolean" },
+        "gaps": { "type": "array", "items": { "$ref": "#/$defs/span" } },
+        "overlaps": { "type": "array", "items": { "$ref": "#/$defs/span" } },
+        "ambiguityCount": { "type": "integer" },
+        "unknownCount": { "type": "integer" },
+        "warningCount": { "type": "integer" },
+        "errorCount": { "type": "integer" },
+        "status": { "enum": ["verified", "partial", "invalid"] }
+      }
+    },
+    "span": {
+      "type": "object",
+      "required": ["start", "end"],
+      "properties": {
+        "start": { "type": "integer" },
+        "end": { "type": "integer" }
+      }
+    },
+    "playback": {
+      "type": "object",
+      "required": ["id", "order", "kind", "text", "line", "column", "segmentId"],
+      "properties": {
+        "id": { "type": "string" },
+        "order": { "type": "integer" },
+        "kind": { "$ref": "#/$defs/kind" },
+        "text": { "type": "string" },
+        "speaker": { "type": "string" },
+        "delivery": { "type": "string" },
+        "durationMs": { "type": "integer" },
+        "line": { "type": "integer" },
+        "column": { "type": "integer" },
+        "segmentId": { "type": "string" }
+      }
+    }
+  }
+}
