@@ -1,19 +1,10 @@
 import { i as __toESM } from "../_runtime.mjs";
-import { G as require_jsx_runtime, K as require_react } from "../_libs/@tanstack/react-router+[...].mjs";
-import { a as Check, i as ClipboardCopy, n as FolderOpen, r as Download, t as TriangleAlert } from "../_libs/lucide-react.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-Ci3kuLr5.js
+import { K as require_react, b as require_jsx_runtime } from "../_libs/@tanstack/react-router+[...].mjs";
+import { a as FolderOpen, c as Check, i as MonitorDown, l as AudioLines, n as TriangleAlert, o as Download, r as RefreshCw, s as ClipboardCopy, t as WifiOff } from "../_libs/lucide-react.mjs";
+import { n as previewPathPrefix, r as __exportAll } from "./router-DFk4QGxj.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-DVIdVZPP.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
-var __defProp = Object.defineProperty;
-var __exportAll = (all, no_symbols) => {
-	let target = {};
-	for (var name in all) __defProp(target, name, {
-		get: all[name],
-		enumerable: true
-	});
-	if (!no_symbols) __defProp(target, Symbol.toStringTag, { value: "Module" });
-	return target;
-};
 /**
 * Explicit speaker and cue grammar.
 * See docs/GRAMMAR.md for the human-readable contract. This module is the
@@ -122,7 +113,7 @@ var PROSE_STARTERS = /* @__PURE__ */ new Set([
 */
 var SPEAKER_TOKEN = "(?:\\p{Lu}\\.(?:\\p{Lu}\\.)*|\\p{Lu}\\p{Ll}+(?:['’\\-][\\p{Lu}]?\\p{Ll}+)*\\.?|\\p{Lu}[\\p{Lu}\\p{N}'’\\.\\-]{1,30}|\\p{Lo}{1,12})";
 var SPEAKER_NAME = `${SPEAKER_TOKEN}(?:[ \\t]+${SPEAKER_TOKEN}){0,2}`;
-var DIALOGUE_RE = new RegExp(`^([ \\t]*)(${SPEAKER_NAME})(?:[ \\t]*\\(([^)\\n]{1,80})\\))?[ \\t]*:[ \\t]?([\\s\\S]*)$`, "u");
+var DIALOGUE_RE$1 = new RegExp(`^([ \\t]*)(${SPEAKER_NAME})(?:[ \\t]*\\(([^)\\n]{1,80})\\))?[ \\t]*:[ \\t]?([\\s\\S]*)$`, "u");
 var SCENE_PREFIX_RE = /^(INT\/EXT\.|I\/E\.|INT\.|EXT\.)/i;
 var SCENE_RE = new RegExp(`^(INT\\/EXT\\.|I\\/E\\.|INT\\.|EXT\\.)[ \\t]+(.+?)[ \\t]*[—–-][ \\t]*((?:DAY|NIGHT|DAWN|DUSK|MORNING|EVENING|AFTERNOON|MIDNIGHT|NOON|SUNSET|SUNRISE|CONTINUOUS|LATER|SAME|MAGIC HOUR)(?:[ \\t]+(?:LATER|CONTINUOUS))?)[ \\t]*$`, "iu");
 var ATX_RE = /^(#{1,6})[ \t]+(.+?)[ \t]*#*[ \t]*$/u;
@@ -132,15 +123,15 @@ function equalsCount(text) {
 	const m = /^[ \t]*(=+)[ \t]*$/.exec(text);
 	return m ? m[1].length : 0;
 }
-var PAUSE_RE = /^pause\b[ \t]*:?[ \t]*(.*)$/i;
+var PAUSE_RE$1 = /^pause\b[ \t]*:?[ \t]*(.*)$/i;
 var DURATION_RE = /^(\d+(?:\.\d+)?)[ \t]*(ms|s|sec|secs|second|seconds|m|min|mins|minute|minutes)$/i;
 var SFX_RE = /^sfx[ \t]*:[ \t]*([\s\S]*)$/i;
 var MUSIC_RE = /^music[ \t]*:[ \t]*([\s\S]*)$/i;
 var AMBIENCE_RE = /^(?:ambience|ambient|amb)[ \t]*:[ \t]*([\s\S]*)$/i;
-var DELIVERY_RE = /^[\p{L}\p{N}][\p{L}\p{N} ,.'’\-]{0,59}$/u;
+var DELIVERY_RE = /^[\p{L}\p{N}][\p{L}\p{N} ,.'’-]{0,59}$/u;
 function classifyBracketInner(inner) {
 	const trimmed = inner.trim();
-	const pause = PAUSE_RE.exec(trimmed);
+	const pause = PAUSE_RE$1.exec(trimmed);
 	if (pause) {
 		const rest = pause[1].trim();
 		if (!rest) return {
@@ -446,7 +437,7 @@ function isTitleCandidate(text) {
 	const trimmed = text.trim();
 	if (trimmed.length < 1 || trimmed.length > 80) return false;
 	if (/[.!?]$/.test(trimmed)) return false;
-	if (DIALOGUE_RE.test(text)) return false;
+	if (DIALOGUE_RE$1.test(text)) return false;
 	if (SCENE_PREFIX_RE.test(trimmed)) return false;
 	if (ATX_RE.test(trimmed)) return false;
 	const brackets = findBrackets(trimmed, 0);
@@ -507,7 +498,7 @@ function parseBody(source, from, to) {
 			}));
 			continue;
 		}
-		const dialogue = DIALOGUE_RE.exec(line.text);
+		const dialogue = DIALOGUE_RE$1.exec(line.text);
 		if (dialogue) {
 			const indent = dialogue[1];
 			const name = dialogue[2];
@@ -622,6 +613,848 @@ function parseDocument(source) {
 	else segments = parseBody(source, 0, source.length);
 	assignIds(segments);
 	return finalize(source, segments);
+}
+var DD_DEFAULT_SETTINGS = Object.freeze({
+	line_gap_s: .35,
+	scene_gap_s: 1,
+	narrator_name: "NARRATOR",
+	default_language: "en"
+});
+var DD_SPAN_CLASSES = [
+	"dialogue",
+	"narration",
+	"heading",
+	"direction",
+	"pause",
+	"syntax"
+];
+/** DexDiffusion's LLM parse refuses scripts longer than this; the deterministic parse has no limit. */
+var DD_LLM_MAX_CHARS = 14e3;
+var HEADING_RES = [
+	/^\s*(?:INT\.?\/EXT\.?|EXT\.?\/INT\.?|I\/E\.?|INT\.?|EXT\.?)\s+\S.*$/i,
+	/^\s*#{1,3}\s+(\S.*?)\s*#*\s*$/,
+	/^\s*={2,}\s*(\S.*?)\s*={2,}\s*$/,
+	/^\s*(?:SCENE|ACT|CHAPTER)\s+(?:\d+|[IVXLC]+)\b[:.\- ]*.*$/i
+];
+var STOP_NAMES = /* @__PURE__ */ new Set([
+	"NOTE",
+	"NOTES",
+	"TITLE",
+	"SETTING",
+	"TIME",
+	"LOCATION",
+	"SCENE",
+	"INT",
+	"EXT",
+	"CAST",
+	"AUTHOR",
+	"DATE",
+	"CHARACTERS"
+]);
+var DIALOGUE_RE = /^\s*([A-Za-z][A-Za-z0-9 _.'\-]{0,38}?)\s*(?:\(([^)]{1,60})\))?\s*:\s*(\S.*)$/;
+var PAUSE_RE = /^\s*[\[(]\s*(?:pause|beat|silence)\s*(\d+(?:\.\d+)?)?\s*s?\s*[\])]\s*$/i;
+var FULL_DIRECTION_RE = /^\s*[\[(][^\]):]{1,120}[\])]\s*$/;
+var CUE_RE = /^\s*[\[(]\s*(SFX|SOUND|FX|MUSIC|AMBIENCE|AMBIENT|BED|ATMOS(?:PHERE)?)\s*[:\-\u2013\u2014]\s*([^\])]{1,200}?)\s*[\])]\s*$/i;
+var CUE_ROLE = {
+	sfx: "sfx",
+	sound: "sfx",
+	fx: "sfx",
+	music: "music",
+	ambience: "ambience",
+	ambient: "ambience",
+	bed: "ambience",
+	atmos: "ambience",
+	atmosphere: "ambience"
+};
+function parseCue(text) {
+	const m = CUE_RE.exec(text);
+	if (!m) return null;
+	const params = {};
+	const desc = [];
+	for (const raw of m[2].split(",")) {
+		const t = raw.trim();
+		let x;
+		if (x = /^fade[- ]?in\s+(\d+(?:\.\d+)?)\s*s?(?:ec(?:onds)?)?$/i.exec(t)) params.fade_in_s = Number(x[1]);
+		else if (x = /^fade[- ]?out\s+(\d+(?:\.\d+)?)\s*s?(?:ec(?:onds)?)?$/i.exec(t)) params.fade_out_s = Number(x[1]);
+		else if ((x = /^(?:for|duration)\s+(\d+(?:\.\d+)?)\s*s?(?:ec(?:onds)?)?$/i.exec(t)) || (x = /^(\d+(?:\.\d+)?)\s*s(?:ec(?:onds)?)?\s+long$/i.exec(t))) params.duration_s = Number(x[1]);
+		else if (/^loop(?:ed|ing)?$/i.test(t)) params.loop = true;
+		else if (/^optional$/i.test(t)) params.optional = true;
+		else if (/^required$/i.test(t)) params.required = true;
+		else if (/^no[- ]duck$/i.test(t)) params.duck = false;
+		else if (/^duck$/i.test(t)) params.duck = true;
+		else if (t) desc.push(t);
+	}
+	return {
+		role: CUE_ROLE[m[1].toLowerCase()],
+		description: desc.join(", ").slice(0, 160),
+		params
+	};
+}
+var isAllCaps = (s) => /[A-Z]/.test(s) && s === s.toUpperCase();
+var keyOf = (s) => String(s || "").trim().replace(/\s+/g, " ").toUpperCase();
+var headingTitle = (line) => {
+	for (const re of HEADING_RES) {
+		const m = re.exec(line);
+		if (m) return (m[1] || line).trim().replace(/^#+\s*/, "");
+	}
+	return null;
+};
+function speakerOk(name) {
+	const n = name.trim();
+	if (!n || STOP_NAMES.has(n.toUpperCase()) || n.split(/\s+/).length > 4) return false;
+	if (/[!?,;]/.test(n)) return false;
+	return true;
+}
+function leadingDirections(text) {
+	const dirs = [];
+	let rest = text.trimStart();
+	let m;
+	const re = /^[\[(]([^\])]{1,80})[\])]\s*/;
+	while (m = re.exec(rest)) {
+		dirs.push(m[1].trim());
+		rest = rest.slice(m[0].length);
+	}
+	return {
+		direction: dirs.join(", "),
+		rest
+	};
+}
+var normalizeNewlines = (s) => String(s == null ? "" : s).replace(/\r\n?/g, "\n");
+function leadingDirectionSpans(text) {
+	const out = [];
+	let at = 0;
+	let m;
+	const re = /^[\[(]([^\])]{1,80})[\])]\s*/;
+	while (m = re.exec(text.slice(at))) {
+		out.push([at, at + m[0].trimEnd().length]);
+		at += m[0].length;
+	}
+	return {
+		groups: out,
+		restAt: at
+	};
+}
+/** DexDiffusion drama.js parseScript, unchanged in behaviour. */
+function parseScript(source, opts = {}) {
+	const narrator = (opts.narrator || DD_DEFAULT_SETTINGS.narrator_name).trim() || "NARRATOR";
+	const original = normalizeNewlines(source);
+	const raw = original.split("\n");
+	const starts = [];
+	let off = 0;
+	for (const l of raw) {
+		starts.push(off);
+		off += l.length + 1;
+	}
+	const cand = /* @__PURE__ */ new Map();
+	let anyCaps = false;
+	raw.forEach((l) => {
+		const m = DIALOGUE_RE.exec(l);
+		if (m && speakerOk(m[1]) && !headingTitle(l)) {
+			const k = keyOf(m[1]);
+			cand.set(k, (cand.get(k) || 0) + 1);
+			if (isAllCaps(m[1].trim())) anyCaps = true;
+		}
+	});
+	const accepted = (name) => {
+		const k = keyOf(name);
+		return isAllCaps(name.trim()) || (cand.get(k) || 0) >= 2 || !anyCaps;
+	};
+	const scenes = [];
+	let scene = null;
+	let lineNo = 0;
+	const warnings = [];
+	const spans = [];
+	const span = (s, e, cls, line) => {
+		if (e > s) spans.push({
+			start: s,
+			end: e,
+			class: cls,
+			line: line || null
+		});
+	};
+	const bounds = (i) => {
+		const l = raw[i];
+		return [starts[i] + (l.length - l.trimStart().length), starts[i] + l.trimEnd().length];
+	};
+	const newScene = (title) => {
+		scene = {
+			id: "sc-" + String(scenes.length + 1).padStart(2, "0"),
+			title: title || "Scene " + (scenes.length + 1),
+			lines: []
+		};
+		scenes.push(scene);
+		return scene;
+	};
+	const mk = (o) => Object.assign({
+		id: "ln-" + String(++lineNo).padStart(3, "0"),
+		speaker: o.speaker,
+		speaker_key: keyOf(o.speaker),
+		kind: o.kind,
+		text: o.text,
+		direction: o.direction || "",
+		pause_before_s: o.pause_before_s == null ? null : o.pause_before_s,
+		pause_after_s: null,
+		render: o.kind !== "direction",
+		src: o.src,
+		takes: [],
+		active_take_id: null
+	}, o.cue ? { cue: o.cue } : {});
+	const push = (o) => {
+		if (!scene) newScene(null);
+		scene.lines.push(mk(o));
+		return scene.lines[scene.lines.length - 1];
+	};
+	let cur = null;
+	let nar = null;
+	let pendingPause = null;
+	const flushNar = () => {
+		if (nar) {
+			const ln = push({
+				speaker: narrator,
+				kind: "narration",
+				text: nar.text,
+				src: {
+					start: nar.s,
+					end: nar.e
+				},
+				pause_before_s: nar.pause
+			});
+			for (const [a, b] of nar.spans) span(a, b, "narration", ln);
+			nar = null;
+		}
+	};
+	const endAll = () => {
+		flushNar();
+		cur = null;
+	};
+	const spokenSpans = (from, to, line) => {
+		const { groups, restAt } = leadingDirectionSpans(original.slice(from, to));
+		for (const [a, b] of groups) span(from + a, from + b, "direction", line);
+		span(from + restAt, to, "dialogue", line);
+	};
+	for (let i = 0; i < raw.length; i++) {
+		const line = raw[i];
+		const t = line.trim();
+		const s = starts[i];
+		const e = s + line.length;
+		if (!t) {
+			endAll();
+			continue;
+		}
+		const [c0, c1] = bounds(i);
+		const h = headingTitle(line);
+		if (h) {
+			endAll();
+			span(c0, c1, "heading");
+			newScene(h);
+			continue;
+		}
+		const pz = PAUSE_RE.exec(line);
+		if (pz) {
+			endAll();
+			span(c0, c1, "pause");
+			pendingPause = pz[1] ? Number(pz[1]) : .6;
+			continue;
+		}
+		const cueParsed = parseCue(line);
+		if (cueParsed) {
+			endAll();
+			span(c0, c1, "direction", push({
+				speaker: narrator,
+				kind: "direction",
+				text: t.replace(/^[\[(]\s*|\s*[\])]$/g, ""),
+				src: {
+					start: s,
+					end: e
+				},
+				cue: cueParsed
+			}));
+			continue;
+		}
+		if (FULL_DIRECTION_RE.test(line) && !DIALOGUE_RE.test(line)) {
+			endAll();
+			span(c0, c1, "direction", push({
+				speaker: narrator,
+				kind: "direction",
+				text: t.replace(/^[\[(]\s*|\s*[\])]$/g, ""),
+				src: {
+					start: s,
+					end: e
+				}
+			}));
+			continue;
+		}
+		const dm = DIALOGUE_RE.exec(line);
+		if (dm && speakerOk(dm[1]) && accepted(dm[1])) {
+			endAll();
+			const ld = leadingDirections(dm[3]);
+			const dir = [dm[2], ld.direction].filter(Boolean).join(", ");
+			const textStart = e - dm[3].length;
+			cur = push({
+				speaker: dm[1].trim(),
+				kind: "dialogue",
+				text: ld.rest,
+				direction: dir,
+				src: {
+					start: textStart,
+					end: e
+				},
+				pause_before_s: pendingPause
+			});
+			pendingPause = null;
+			span(c0, textStart, "syntax", cur);
+			spokenSpans(textStart, c1, cur);
+			continue;
+		}
+		if (isAllCaps(t) && t.length <= 30 && !/[.!?]$/.test(t) && speakerOk(t) && i + 1 < raw.length && raw[i + 1].trim() && !headingTitle(raw[i + 1]) && !(cur && starts[i] === cur.src.end + 1)) {
+			endAll();
+			let j = i + 1;
+			let dir = "";
+			const par = /^\s*[\[(]([^\])]{1,80})[\])]\s*$/.exec(raw[j]);
+			const parIdx = par ? j : -1;
+			if (par) {
+				dir = par[1].trim();
+				j++;
+			}
+			const body = [];
+			let bs = null;
+			let be = null;
+			const bodyIdx = [];
+			while (j < raw.length && raw[j].trim() && !headingTitle(raw[j])) {
+				if (bs == null) bs = starts[j];
+				be = starts[j] + raw[j].length;
+				body.push(raw[j].trim());
+				bodyIdx.push(j);
+				j++;
+			}
+			if (body.length) {
+				const ld = leadingDirections(body.join(" "));
+				const ln = push({
+					speaker: t,
+					kind: "dialogue",
+					text: ld.rest,
+					direction: [dir, ld.direction].filter(Boolean).join(", "),
+					src: {
+						start: bs,
+						end: be
+					},
+					pause_before_s: pendingPause
+				});
+				pendingPause = null;
+				span(c0, c1, "syntax", ln);
+				if (parIdx >= 0) {
+					const [pa, pb] = bounds(parIdx);
+					span(pa, pb, "direction", ln);
+				}
+				bodyIdx.forEach((bi, k) => {
+					const [ba, bb] = bounds(bi);
+					if (k === 0) spokenSpans(ba, bb, ln);
+					else span(ba, bb, "dialogue", ln);
+				});
+				i = j - 1;
+				continue;
+			}
+		}
+		if (cur) {
+			cur.text += " " + t;
+			cur.src.end = e;
+			span(c0, c1, "dialogue", cur);
+			continue;
+		}
+		if (nar) {
+			nar.text += " " + t;
+			nar.e = e;
+			nar.spans.push([c0, c1]);
+			continue;
+		}
+		nar = {
+			text: t,
+			s,
+			e,
+			pause: pendingPause,
+			spans: [[c0, c1]]
+		};
+		pendingPause = null;
+	}
+	endAll();
+	const speakers = /* @__PURE__ */ new Map();
+	for (const sc of scenes) for (const l of sc.lines) {
+		if (l.kind === "direction") continue;
+		const k = l.speaker_key;
+		if (!speakers.has(k)) speakers.set(k, {
+			key: k,
+			name: l.speaker,
+			lines: 0,
+			kinds: {
+				dialogue: 0,
+				narration: 0
+			}
+		});
+		const sp = speakers.get(k);
+		sp.lines++;
+		sp.kinds[l.kind]++;
+	}
+	if (!scenes.length) warnings.push("No lines were found. Use \"NAME: text\" lines, screenplay cues, or plain narration paragraphs.");
+	else if (![...speakers.values()].some((s) => s.kinds.dialogue)) warnings.push("No dialogue lines were detected (only narration). Use \"NAME: text\" if you expected speakers.");
+	const firstHeading = scenes.length && headingTitle(raw.find((l) => headingTitle(l)) || "") || null;
+	const outSpans = spans.map((x) => ({
+		start: x.start,
+		end: x.end,
+		class: x.class,
+		line_id: x.line ? x.line.id : null
+	})).sort((a, b) => a.start - b.start || a.end - b.end);
+	return {
+		source_length: original.length,
+		title: firstHeading,
+		scenes,
+		speakers: [...speakers.values()],
+		warnings,
+		spans: outSpans
+	};
+}
+var normalizeSpoken = (s) => String(s == null ? "" : s).normalize("NFC").replace(/\s+/g, " ").trim();
+function reconstructLineText(text, line) {
+	const slice = text.slice(line.src.start, line.src.end);
+	if (line.kind === "direction") return normalizeSpoken(slice.replace(/^\s*[\[(]\s*|\s*[\])]\s*$/g, ""));
+	const { restAt } = leadingDirectionSpans(slice.trimStart());
+	return normalizeSpoken(slice.trimStart().slice(restAt));
+}
+/** DexDiffusion drama.js verifySourceCoverage, unchanged in behaviour. */
+function verifySourceCoverage(source, parsed) {
+	const text = normalizeNewlines(source);
+	const cover = new Int8Array(text.length).fill(-1);
+	const counts = Object.fromEntries(DD_SPAN_CLASSES.map((c) => [c, 0]));
+	const problems = [];
+	(parsed.spans || []).forEach((sp, idx) => {
+		if (!DD_SPAN_CLASSES.includes(sp.class) || !(sp.start >= 0 && sp.end <= text.length && sp.end > sp.start)) {
+			problems.push({
+				index: idx,
+				reason: "invalid-span"
+			});
+			return;
+		}
+		const ci = DD_SPAN_CLASSES.indexOf(sp.class);
+		for (let k = sp.start; k < sp.end; k++) if (cover[k] < 0) {
+			cover[k] = ci;
+			if (!/\s/.test(text[k])) counts[sp.class]++;
+		}
+	});
+	const unclassified = [];
+	for (let k = 0; k < text.length; k++) {
+		if (cover[k] >= 0 || /\s/.test(text[k])) continue;
+		const start = k;
+		while (k + 1 < text.length && cover[k + 1] < 0 && !/\s/.test(text[k + 1])) k++;
+		unclassified.push({
+			start,
+			end: k + 1
+		});
+	}
+	const mismatches = [];
+	for (const sc of parsed.scenes || []) for (const l of sc.lines) {
+		if (!l.src || l.edited) continue;
+		if (reconstructLineText(text, l) !== normalizeSpoken(l.text)) mismatches.push({
+			line_id: l.id,
+			scene_id: sc.id,
+			reason: "text-differs-from-source"
+		});
+	}
+	const total = Object.values(counts).reduce((a, b) => a + b, 0) + unclassified.reduce((a, u) => a + (u.end - u.start), 0);
+	return {
+		ok: !unclassified.length && !mismatches.length && !problems.length,
+		unclassified,
+		mismatches,
+		problems,
+		counts,
+		classified_chars: total - unclassified.reduce((a, u) => a + (u.end - u.start), 0),
+		total_chars: total
+	};
+}
+var DEFAULT_NARRATOR$1 = "NARRATOR";
+/** Body for POST /api/drama/projects. `title` is optional; DexDiffusion falls back to the first heading. */
+function dexDiffusionRequest(script, options = {}) {
+	const body = {
+		script: String(script ?? ""),
+		mode: "deterministic",
+		settings: { narrator_name: String(options.narrator ?? "").trim() || DEFAULT_NARRATOR$1 }
+	};
+	const title = String(options.title ?? "").trim();
+	return title ? {
+		title: title.slice(0, 120),
+		...body
+	} : body;
+}
+/**
+* Recover script text from a JSON file: a DexDiffusion drama project
+* (dexdiffusion.drama_project.*, or an API reply wrapping one in `project`),
+* a DexDiffusion request body ({ script }), or a DexParse export.
+*/
+function scriptFromJson(json) {
+	if (!json || typeof json !== "object" || Array.isArray(json)) return null;
+	if (typeof json.schema === "string" && json.schema.startsWith("dexdiffusion.drama_project.") && typeof json.source_script === "string") return {
+		text: json.source_script,
+		from: "DexDiffusion drama project",
+		title: typeof json.title === "string" ? json.title : void 0
+	};
+	if (json.project && typeof json.project === "object") {
+		const inner = scriptFromJson(json.project);
+		if (inner) return inner;
+	}
+	if (json.schema === "dexparse.document/v1" && json.source && typeof json.source.text === "string") return {
+		text: json.source.text,
+		from: "DexParse export"
+	};
+	if (typeof json.script === "string") return {
+		text: json.script,
+		from: "DexDiffusion script request",
+		title: typeof json.title === "string" ? json.title : void 0,
+		narrator: json.settings && typeof json.settings.narrator_name === "string" ? json.settings.narrator_name : void 0
+	};
+	return null;
+}
+var DEFAULT_NARRATOR = DD_DEFAULT_SETTINGS.narrator_name;
+function dexDiffusionRequestJson(script, options = {}) {
+	return JSON.stringify(dexDiffusionRequest(script, options), null, 2) + "\n";
+}
+function lineStarts(text) {
+	const starts = [0];
+	for (let i = 0; i < text.length; i += 1) if (text[i] === "\n") starts.push(i + 1);
+	return starts;
+}
+function lineOf(starts, offset) {
+	let lo = 0;
+	let hi = starts.length - 1;
+	while (lo < hi) {
+		const mid = lo + hi + 1 >> 1;
+		if (starts[mid] <= offset) lo = mid;
+		else hi = mid - 1;
+	}
+	return lo + 1;
+}
+/** 1-based line number → what DexDiffusion does with that line. */
+function dexDiffusionLineClasses(parsed, normalizedText) {
+	const starts = lineStarts(normalizedText);
+	const byId = /* @__PURE__ */ new Map();
+	for (const scene of parsed.scenes) for (const line of scene.lines) byId.set(line.id, line);
+	const out = /* @__PURE__ */ new Map();
+	for (const span of parsed.spans) {
+		const lineNo = lineOf(starts, span.start);
+		if (out.has(lineNo) && out.get(lineNo).cls !== "direction") continue;
+		if (span.class === "heading") out.set(lineNo, { cls: "heading" });
+		else if (span.class === "pause") out.set(lineNo, { cls: "pause" });
+		else {
+			const line = span.line_id ? byId.get(span.line_id) : void 0;
+			if (!line) continue;
+			const cls = line.kind === "dialogue" ? "dialogue" : line.kind === "narration" ? "narration" : line.cue ? "cue" : "direction";
+			if (!out.has(lineNo) || cls !== "direction") out.set(lineNo, {
+				cls,
+				line
+			});
+		}
+	}
+	return out;
+}
+var EXPECTED = {
+	dialogue: ["dialogue"],
+	narration: ["narration"],
+	scene_heading: ["heading"],
+	title: ["heading"],
+	pause: ["pause"],
+	sfx: ["cue"],
+	music: ["cue"],
+	ambience: ["cue"],
+	sequence: [
+		"cue",
+		"direction",
+		"pause"
+	],
+	unknown: ["direction"],
+	ambiguous: ["direction", "heading"],
+	formatting: ["none"],
+	blank: ["none"]
+};
+function explain(seg, cls, ddLine) {
+	const spoken = cls === "dialogue" || cls === "narration";
+	if (seg.kind === "pause" && cls === "direction") return {
+		code: "dd-pause-unit",
+		severity: "warning",
+		message: "DexDiffusion reads pauses in seconds only, such as [pause 2s], [pause 0.5s] or [beat]. This line becomes a silent stage direction with no pause."
+	};
+	if (seg.kind === "pause" && spoken) return {
+		code: "dd-pause-spoken",
+		severity: "warning",
+		message: `DexDiffusion would speak this pause as ${cls}. Use [pause 2s].`
+	};
+	if ((seg.kind === "sfx" || seg.kind === "music" || seg.kind === "ambience") && (cls === "direction" || spoken)) return {
+		code: "dd-cue-tag",
+		severity: "warning",
+		message: `DexDiffusion does not recognize this cue tag, so the cue is ${spoken ? "read aloud" : "lost"}. Use [SFX: …], [MUSIC: …] or [AMBIENCE: …].`
+	};
+	if (seg.kind === "title" && cls === "narration") return {
+		code: "dd-title-spoken",
+		severity: "warning",
+		message: "DexDiffusion has no TITLE: line and would read this aloud as narration. Use a heading such as # Title instead."
+	};
+	if (seg.kind === "dialogue" && cls === "narration") return {
+		code: "dd-speaker-missed",
+		severity: "warning",
+		message: `DexDiffusion does not treat ${seg.speaker ?? "this name"} as a speaker, so the narrator reads the line, name included. Write the name in ALL CAPS, for example ${keyOf(seg.speaker ?? "NAME")}:.`
+	};
+	if (seg.kind === "narration" && cls === "dialogue") return {
+		code: "dd-extra-speaker",
+		severity: "warning",
+		message: `DexDiffusion reads this as dialogue for ${ddLine?.speaker ?? "a speaker"}, not narration.`
+	};
+	if (seg.kind === "formatting" && spoken) return {
+		code: "dd-rule-spoken",
+		severity: "info",
+		message: "DexDiffusion keeps this rule as narration text. Remove it if nothing should be read."
+	};
+	if ((seg.kind === "unknown" || seg.kind === "ambiguous" || seg.kind === "sequence") && spoken) return {
+		code: "dd-bracket-spoken",
+		severity: "warning",
+		message: `DexDiffusion would read this line aloud as ${cls}.`
+	};
+	if (spoken) return {
+		code: "dd-spoken",
+		severity: "warning",
+		message: `DexDiffusion would read this line aloud as ${cls}; DexParse classifies it as ${seg.kind}.`
+	};
+	return {
+		code: "dd-class",
+		severity: "info",
+		message: `DexDiffusion treats this line as ${cls}; DexParse classifies it as ${seg.kind}.`
+	};
+}
+/** Lines where DexParse and DexDiffusion disagree. Offsets are DexParse (original-text) offsets. */
+function compareWithDexDiffusion(text, segments, parsed) {
+	const normalized = normalizeNewlines(text);
+	const starts = lineStarts(normalized);
+	const classes = dexDiffusionLineClasses(parsed, normalized);
+	const fountain = new Set(parsed.spans.filter((sp) => sp.class === "syntax" && sp.line_id && !normalized.slice(sp.start, sp.end).includes(":")).map((sp) => sp.line_id));
+	const firstLineOf = /* @__PURE__ */ new Map();
+	for (const sp of parsed.spans) if (sp.line_id && !firstLineOf.has(sp.line_id)) firstLineOf.set(sp.line_id, lineOf(starts, sp.start));
+	const issues = [];
+	for (const seg of segments) {
+		if (seg.kind === "blank") continue;
+		const dd = classes.get(seg.line) ?? { cls: "none" };
+		const base = {
+			line: seg.line,
+			dexparse: seg.kind,
+			dexdiffusion: dd.cls,
+			start: seg.start,
+			end: seg.end
+		};
+		if (!EXPECTED[seg.kind].includes(dd.cls)) {
+			if (seg.kind === "formatting" && dd.cls === "heading") continue;
+			if (dd.line && fountain.has(dd.line.id) && dd.cls === "dialogue") {
+				issues.push({
+					...base,
+					severity: "info",
+					code: "dd-screenplay-cue",
+					message: `DexDiffusion reads this screenplay-style block (name on its own line) as dialogue for ${dd.line.speaker}.`
+				});
+				continue;
+			}
+			const joinedFrom = dd.line ? firstLineOf.get(dd.line.id) : void 0;
+			if (dd.line && joinedFrom != null && joinedFrom < seg.line && (dd.cls === "dialogue" || dd.cls === "narration")) {
+				issues.push({
+					...base,
+					severity: "warning",
+					code: "dd-joined",
+					message: `DexDiffusion joins this line onto the ${dd.cls === "dialogue" ? `${dd.line.speaker} line` : "narration"} that starts on line ${joinedFrom}, because no blank line separates them. Add a blank line before it.`
+				});
+				continue;
+			}
+			issues.push({
+				...base,
+				...explain(seg, dd.cls, dd.line)
+			});
+			continue;
+		}
+		if (seg.kind === "dialogue" && dd.line && seg.speaker && keyOf(seg.speaker) !== dd.line.speaker_key) {
+			issues.push({
+				...base,
+				code: "dd-speaker-differs",
+				severity: "warning",
+				message: `DexParse reads the speaker as ${seg.speaker}; DexDiffusion reads ${dd.line.speaker}.`
+			});
+			continue;
+		}
+		const inline = (seg.children ?? []).filter((c) => c.kind === "pause" || c.kind === "sfx" || c.kind === "music" || c.kind === "ambience");
+		if ((seg.kind === "dialogue" || seg.kind === "narration") && inline.length) issues.push({
+			...base,
+			code: "dd-inline-cue",
+			severity: "info",
+			message: `DexDiffusion keeps ${inline.map((c) => c.raw.trim()).join(", ")} inside the spoken text instead of timing it. Put the cue on its own line for a real pause or sound.`
+		});
+	}
+	return issues;
+}
+function buildDexDiffusionView(text, segments, options = {}) {
+	const parsed = parseScript(text, { narrator: options.narrator });
+	const coverage = verifySourceCoverage(text, parsed);
+	const issues = compareWithDexDiffusion(text, segments, parsed);
+	if (coverage.mismatches.length || coverage.unclassified.length) {
+		const starts = lineStarts(normalizeNewlines(text));
+		const byId = new Map(parsed.scenes.flatMap((s) => s.lines).map((l) => [l.id, l]));
+		const at = (offset) => {
+			const line = lineOf(starts, offset);
+			const seg = segments.find((s) => s.line === line);
+			return {
+				line,
+				start: seg?.start ?? 0,
+				end: seg?.end ?? 0,
+				dexparse: seg?.kind ?? "unknown"
+			};
+		};
+		for (const m of coverage.mismatches) {
+			const ddLine = byId.get(m.line_id);
+			if (!ddLine) continue;
+			issues.push({
+				...at(ddLine.src.start),
+				severity: "warning",
+				code: "dd-source-check",
+				dexdiffusion: ddLine.kind === "direction" ? ddLine.cue ? "cue" : "direction" : ddLine.kind,
+				message: `DexDiffusion's own source check fails on ${m.line_id}: its stored text no longer matches the script slice, so the project is stamped "coverage not ok". Split the line so each cue or pause sits on its own line.`
+			});
+		}
+		for (const u of coverage.unclassified) issues.push({
+			...at(u.start),
+			severity: "warning",
+			code: "dd-unclassified",
+			dexdiffusion: "none",
+			message: "DexDiffusion leaves these characters unclassified."
+		});
+		issues.sort((a, b) => a.line - b.line);
+	}
+	const lines = parsed.scenes.flatMap((s) => s.lines);
+	const pauses = parsed.spans.filter((s) => s.class === "pause").length;
+	return {
+		parsed,
+		coverage,
+		issues,
+		stats: {
+			scenes: parsed.scenes.length,
+			lines: lines.length,
+			dialogue: lines.filter((l) => l.kind === "dialogue").length,
+			narration: lines.filter((l) => l.kind === "narration").length,
+			cues: lines.filter((l) => l.cue).length,
+			directions: lines.filter((l) => l.kind === "direction" && !l.cue).length,
+			pauses,
+			speakers: parsed.speakers.length
+		},
+		ready: coverage.ok && lines.length > 0,
+		warnings: issues.filter((i) => i.severity === "warning").length
+	};
+}
+var UPDATE_CHECK_MS = 36e5;
+/** Register /sw.js in production builds only, and never inside path-prefixed preview hosts. */
+function shouldRegisterServiceWorker(env) {
+	if (!env.prod || !env.hasServiceWorker || !env.secure) return false;
+	return !previewPathPrefix(env.hostname, env.pathname);
+}
+function usePwa() {
+	const [offline, setOffline] = (0, import_react.useState)(false);
+	const [updateReady, setUpdateReady] = (0, import_react.useState)(false);
+	const [canInstall, setCanInstall] = (0, import_react.useState)(false);
+	const [installed, setInstalled] = (0, import_react.useState)(false);
+	const [offlineReady, setOfflineReady] = (0, import_react.useState)(false);
+	const waiting = (0, import_react.useRef)(null);
+	const promptEvent = (0, import_react.useRef)(null);
+	const reloading = (0, import_react.useRef)(false);
+	(0, import_react.useEffect)(() => {
+		setOffline(!navigator.onLine);
+		const standalone = window.matchMedia?.("(display-mode: standalone)");
+		setInstalled(Boolean(standalone?.matches) || navigator.standalone === true);
+		const onOnline = () => setOffline(false);
+		const onOffline = () => setOffline(true);
+		const onPrompt = (event) => {
+			event.preventDefault();
+			promptEvent.current = event;
+			setCanInstall(true);
+		};
+		const onInstalled = () => {
+			promptEvent.current = null;
+			setCanInstall(false);
+			setInstalled(true);
+		};
+		window.addEventListener("online", onOnline);
+		window.addEventListener("offline", onOffline);
+		window.addEventListener("beforeinstallprompt", onPrompt);
+		window.addEventListener("appinstalled", onInstalled);
+		let timer;
+		let onVisible;
+		if (shouldRegisterServiceWorker({
+			prod: true,
+			hasServiceWorker: "serviceWorker" in navigator,
+			secure: window.isSecureContext,
+			hostname: window.location.hostname,
+			pathname: window.location.pathname
+		})) {
+			const sw = navigator.serviceWorker;
+			const markWaiting = (worker) => {
+				if (worker && sw.controller) {
+					waiting.current = worker;
+					setUpdateReady(true);
+				}
+			};
+			sw.addEventListener("controllerchange", () => {
+				setOfflineReady(true);
+				if (reloading.current) window.location.reload();
+			});
+			sw.register("/sw.js", { scope: "/" }).then((registration) => {
+				if (sw.controller) setOfflineReady(true);
+				sw.ready.then(() => {
+					if (sw.controller) setOfflineReady(true);
+				});
+				markWaiting(registration.waiting);
+				registration.addEventListener("updatefound", () => {
+					const worker = registration.installing;
+					worker?.addEventListener("statechange", () => {
+						if (worker.state === "installed") markWaiting(worker);
+					});
+				});
+				const check = () => void registration.update().catch(() => {});
+				timer = window.setInterval(check, UPDATE_CHECK_MS);
+				onVisible = () => {
+					if (document.visibilityState === "visible" && navigator.onLine) check();
+				};
+				document.addEventListener("visibilitychange", onVisible);
+			}).catch(() => {});
+		}
+		return () => {
+			window.removeEventListener("online", onOnline);
+			window.removeEventListener("offline", onOffline);
+			window.removeEventListener("beforeinstallprompt", onPrompt);
+			window.removeEventListener("appinstalled", onInstalled);
+			if (timer) window.clearInterval(timer);
+			if (onVisible) document.removeEventListener("visibilitychange", onVisible);
+		};
+	}, []);
+	return {
+		offline,
+		updateReady,
+		canInstall,
+		installed,
+		offlineReady,
+		install: (0, import_react.useCallback)(async () => {
+			const event = promptEvent.current;
+			if (!event) return;
+			await event.prompt();
+			await event.userChoice.catch(() => null);
+			promptEvent.current = null;
+			setCanInstall(false);
+		}, []),
+		applyUpdate: (0, import_react.useCallback)(() => {
+			const worker = waiting.current;
+			if (!worker) {
+				window.location.reload();
+				return;
+			}
+			reloading.current = true;
+			worker.postMessage({ type: "SKIP_WAITING" });
+		}, [])
+	};
 }
 /**
 * Generated coverage fixture. This is not a user script.
@@ -1120,6 +1953,9 @@ function focusScript(start, end) {
 	visible.focus();
 	visible.setSelectionRange(start, Math.max(start, end));
 }
+function shellQuote(value) {
+	return `'${value.replace(/'/g, `'\\''`)}'`;
+}
 function download(filename, contents) {
 	const blob = new Blob([contents], { type: "application/json" });
 	const url = URL.createObjectURL(blob);
@@ -1148,6 +1984,9 @@ function DexParseApp() {
 	const [rejected, setRejected] = (0, import_react.useState)([]);
 	const [selectedId, setSelectedId] = (0, import_react.useState)(null);
 	const [tab, setTab] = (0, import_react.useState)("structure");
+	const [narrator, setNarrator] = (0, import_react.useState)(DEFAULT_NARRATOR);
+	const [ddTitle, setDdTitle] = (0, import_react.useState)("");
+	const pwa = usePwa();
 	const [mobile, setMobile] = (0, import_react.useState)("script");
 	const [leftPct, setLeftPct] = (0, import_react.useState)(46);
 	const [confirmName, setConfirmName] = (0, import_react.useState)(null);
@@ -1162,6 +2001,11 @@ function DexParseApp() {
 	const dirty = script !== parsedText;
 	const validation = parsed.validation;
 	const playback = buildPlayback(parsedText, parsed.segments);
+	const dexDiffusion = (0, import_react.useMemo)(() => buildDexDiffusionView(parsedText, parsed.segments, { narrator }), [
+		parsedText,
+		parsed.segments,
+		narrator
+	]);
 	(0, import_react.useEffect)(() => {
 		let cancelled = false;
 		sha256Hex(parsedText).then((value) => {
@@ -1212,8 +2056,8 @@ function DexParseApp() {
 		setRejected([]);
 		setCopyState(null);
 		try {
-			const { parseOffThread } = await import("./parse-off-thread-kSRUpgPq.mjs");
-			let next = await parseOffThread(script);
+			const { parseOffThread } = await import("./parse-off-thread-DqFQv-hz.mjs");
+			const next = await parseOffThread(script);
 			if (mode === "ollama") {
 				if (ambiguousTargets(next).length === 0) setOllamaNote("Every span already has a deterministic classification. No model call was made.");
 				else {
@@ -1261,15 +2105,53 @@ function DexParseApp() {
 	}
 	async function readFile(file) {
 		const lower = file.name.toLowerCase();
-		if (!lower.endsWith(".txt") && !lower.endsWith(".md")) {
-			setNote("Only local UTF-8 .txt and .md files can be imported.");
+		const json = lower.endsWith(".json");
+		if (!lower.endsWith(".txt") && !lower.endsWith(".md") && !json) {
+			setNote("Only local UTF-8 .txt, .md, or DexParse/DexDiffusion .json files can be imported.");
 			return;
 		}
+		let text;
 		try {
-			loadText(new TextDecoder("utf-8", { fatal: true }).decode(await file.arrayBuffer()), `Imported ${file.name}. The file stayed on this device.`);
+			text = new TextDecoder("utf-8", { fatal: true }).decode(await file.arrayBuffer());
 		} catch {
 			setNote("That file is not valid UTF-8 text. Nothing was imported.");
+			return;
 		}
+		if (!json) {
+			loadText(text, `Imported ${file.name}. The file stayed on this device.`);
+			return;
+		}
+		let found = null;
+		try {
+			found = scriptFromJson(JSON.parse(text));
+		} catch {
+			found = null;
+		}
+		if (!found) {
+			setNote("That JSON is not a DexParse export, a DexDiffusion script request, or a DexDiffusion drama project. Nothing was imported.");
+			return;
+		}
+		if (found.narrator) setNarrator(found.narrator);
+		if (found.title) setDdTitle(found.title);
+		loadText(found.text, `Imported the script from ${file.name} (${found.from}). The file stayed on this device.`);
+	}
+	function exportDexDiffusion() {
+		const name = `dexdiffusion-drama-r${revision}.json`;
+		download(name, dexDiffusionRequestJson(parsedText, {
+			title: ddTitle,
+			narrator
+		}));
+		setCopyState(`Exported ${name}. Send it with: node bin/dexparse-dexdiffusion.mjs send ${name}`);
+	}
+	async function copyForDexDiffusion() {
+		await navigator.clipboard.writeText(parsedText);
+		setCopyState("Script copied. Paste it into DexDiffusion > Audio > Script.");
+	}
+	async function copySendCommand() {
+		const name = `dexdiffusion-drama-r${revision}.json`;
+		const flags = [ddTitle.trim() ? ` --title ${shellQuote(ddTitle.trim())}` : "", narrator.trim() && narrator.trim() !== DEFAULT_NARRATOR ? ` --narrator ${shellQuote(narrator.trim())}` : ""].join("");
+		await navigator.clipboard.writeText(`node bin/dexparse-dexdiffusion.mjs send ~/Downloads/${name}${flags}`);
+		setCopyState("Send command copied. Export the file first, then run the command from the DexParse folder.");
 	}
 	async function exportJson(force) {
 		const name = `dexparse-r${revision}.json`;
@@ -1340,6 +2222,24 @@ function DexParseApp() {
 					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 						className: "ml-auto flex flex-wrap items-center gap-2",
 						children: [
+							pwa.offline ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+								className: "inline-flex h-8 items-center gap-1.5 rounded-sm border border-line px-2 text-xs text-muted",
+								"data-testid": "offline-badge",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(WifiOff, {
+									className: "size-3.5",
+									"aria-hidden": "true"
+								}), "Offline · parsing still works"]
+							}) : null,
+							pwa.canInstall && !pwa.installed ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+								type: "button",
+								className: ghost,
+								onClick: () => void pwa.install(),
+								"data-testid": "install-app",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(MonitorDown, {
+									className: "size-4",
+									"aria-hidden": "true"
+								}), "Install"]
+							}) : null,
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
 								type: "button",
 								className: ghost,
@@ -1390,8 +2290,10 @@ function DexParseApp() {
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
 						ref: fileRef,
 						type: "file",
-						accept: ".txt,.md,text/plain,text/markdown",
+						accept: ".txt,.md,.json,text/plain,text/markdown,application/json",
 						className: "sr-only",
+						"aria-label": "Import a script file",
+						tabIndex: -1,
 						onChange: (event) => {
 							const file = event.target.files?.[0];
 							if (file) readFile(file);
@@ -1400,6 +2302,20 @@ function DexParseApp() {
 					})
 				]
 			}),
+			pwa.updateReady ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				role: "status",
+				"data-testid": "update-banner",
+				className: "flex flex-wrap items-center justify-between gap-2 border-b border-line bg-surface px-3 py-2 text-sm md:px-4",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "A new version of DexParse is ready. Your script is kept." }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+					type: "button",
+					className: primary,
+					onClick: pwa.applyUpdate,
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(RefreshCw, {
+						className: "size-4",
+						"aria-hidden": "true"
+					}), "Reload to update"]
+				})]
+			}) : null,
 			mode === "ollama" ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "flex flex-wrap items-end gap-2 border-b border-line bg-surface px-3 py-2 md:px-4",
 				children: [
@@ -1528,7 +2444,16 @@ function DexParseApp() {
 							focusScript(segment.start, segment.end);
 						},
 						onCopyPlayback: () => void copyPlayback(),
-						copyState
+						copyState,
+						dexDiffusion,
+						narrator,
+						setNarrator,
+						ddTitle,
+						setDdTitle,
+						onExportDexDiffusion: exportDexDiffusion,
+						onCopyForDexDiffusion: () => void copyForDexDiffusion(),
+						onCopySendCommand: () => void copySendCommand(),
+						onFocusRange: (start, end) => focusScript(start, end)
 					})
 				]
 			}),
@@ -1569,7 +2494,19 @@ function DexParseApp() {
 						window.setTimeout(() => focusScript(segment.start, segment.end), 0);
 					},
 					onCopyPlayback: () => void copyPlayback(),
-					copyState
+					copyState,
+					dexDiffusion,
+					narrator,
+					setNarrator,
+					ddTitle,
+					setDdTitle,
+					onExportDexDiffusion: exportDexDiffusion,
+					onCopyForDexDiffusion: () => void copyForDexDiffusion(),
+					onCopySendCommand: () => void copySendCommand(),
+					onFocusRange: (start, end) => {
+						setMobile("script");
+						window.setTimeout(() => focusScript(start, end), 0);
+					}
 				})
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("dialog", {
@@ -1601,7 +2538,8 @@ function DexParseApp() {
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { children: "TITLE: text, a markdown heading, or a line underlined with equals — title." }),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { children: "[pause 2s], [SFX: …], [MUSIC: …], [AMBIENCE: …] — cues. Missing units stay pauses and raise a warning." }),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { children: "Any other bracket is preserved as unknown and counted as not interpreted." }),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { children: "Blank lines stay blank. The original characters are the source of truth." })
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { children: "Blank lines stay blank. The original characters are the source of truth." }),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { children: "The DexDiffusion tab runs DexDiffusion's own Drama (Audio > Script) parser on the same text and lists every line where the two grammars disagree, such as pauses in milliseconds or a TITLE: line DexDiffusion would read aloud." })
 								]
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 								className: "mt-4 text-xs",
@@ -1660,6 +2598,12 @@ var ghost = "inline-flex h-11 items-center justify-center gap-2 rounded-sm borde
 var primary = "inline-flex h-11 items-center justify-center gap-2 rounded-sm bg-accent px-3 text-sm font-medium text-accent-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:opacity-40";
 var field = "h-11 rounded-sm border border-line bg-inset px-3 text-sm text-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent";
 var mobileTab = "h-11 flex-1 text-sm font-medium text-subtle";
+var TAB_LABEL = {
+	structure: "Blocks",
+	playback: "Playback",
+	diagnostics: "Diagnostics",
+	dexdiffusion: "DexDiffusion"
+};
 function ModeButton({ pressed, onClick, label }) {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
 		type: "button",
@@ -1889,14 +2833,16 @@ function InspectPane(props) {
 				children: [
 					"structure",
 					"playback",
-					"diagnostics"
+					"diagnostics",
+					"dexdiffusion"
 				].map((name) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
 					type: "button",
 					role: "tab",
 					"aria-selected": props.tab === name,
-					className: cn("h-11 flex-1 text-sm capitalize", props.tab === name ? "text-fg" : "text-subtle"),
+					"data-testid": `tab-${name}`,
+					className: cn("h-11 flex-1 text-sm", props.tab === name ? "text-fg" : "text-subtle"),
 					onClick: () => props.setTab(name),
-					children: name === "structure" ? "Blocks" : name === "playback" ? "Playback" : "Diagnostics"
+					children: TAB_LABEL[name]
 				}, name))
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
@@ -1962,10 +2908,215 @@ function InspectPane(props) {
 								children: [item.code, item.segmentId ? ` · ${item.segmentId}` : ""]
 							})]
 						}, `${item.code}-${index}`))
+					}) : null,
+					props.tab === "dexdiffusion" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DexDiffusionPanel, {
+						dirty: props.dirty,
+						view: props.dexDiffusion,
+						narrator: props.narrator,
+						setNarrator: props.setNarrator,
+						title: props.ddTitle,
+						setTitle: props.setDdTitle,
+						onExport: props.onExportDexDiffusion,
+						onCopyScript: props.onCopyForDexDiffusion,
+						onCopyCommand: props.onCopySendCommand,
+						onFocusRange: props.onFocusRange
 					}) : null
 				]
 			})
 		]
+	});
+}
+function DexDiffusionPanel(props) {
+	const { view } = props;
+	const stats = [
+		["Scenes", view.stats.scenes],
+		["Lines", view.stats.lines],
+		["Dialogue", view.stats.dialogue],
+		["Narration", view.stats.narration],
+		["Cues", view.stats.cues],
+		["Pauses", view.stats.pauses]
+	];
+	const tooLongForModel = view.parsed.source_length > DD_LLM_MAX_CHARS;
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "flex flex-col gap-4 px-3 py-3 md:px-4",
+		"data-testid": "dexdiffusion-panel",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+			className: "flex items-center gap-2 text-sm font-medium",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(AudioLines, {
+				className: "size-4 text-muted",
+				"aria-hidden": "true"
+			}), "DexDiffusion · Audio > Script"]
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+			className: "mt-1 text-xs text-subtle",
+			children: "DexDiffusion's own Drama parser, run here on the same text. Nothing is sent anywhere."
+		})] }), props.dirty ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+			className: "text-sm text-warn",
+			children: "The script changed. Parse again to update this view."
+		}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				"aria-live": "polite",
+				"data-testid": "dexdiffusion-status",
+				children: [view.ready ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+					className: "flex items-start gap-2 text-sm text-ok",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Check, {
+						className: "mt-0.5 size-4 shrink-0",
+						"aria-hidden": "true"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+						"Ready for DexDiffusion. Its coverage check passes (",
+						view.coverage.classified_chars,
+						" of ",
+						view.coverage.total_chars,
+						" characters)."
+					] })]
+				}) : view.stats.lines === 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "text-sm text-muted",
+					children: "DexDiffusion would find no lines in this script."
+				}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+					className: "flex items-start gap-2 text-sm text-warn",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TriangleAlert, {
+						className: "mt-0.5 size-4 shrink-0",
+						"aria-hidden": "true"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "DexDiffusion would import this, but its own source check fails. See the lines below." })]
+				}), view.warnings > 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+					className: "mt-1 text-xs text-warn",
+					children: [
+						view.warnings,
+						" line",
+						view.warnings === 1 ? "" : "s",
+						" would sound different in DexDiffusion than DexParse shows."
+					]
+				}) : null]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("dl", {
+				className: "grid grid-cols-3 gap-x-4 gap-y-2 font-mono text-xs tabular-nums",
+				children: stats.map(([label, value]) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("dt", {
+					className: "text-subtle",
+					children: label
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("dd", {
+					className: "text-fg",
+					children: value
+				})] }, label))
+			}),
+			view.parsed.speakers.length > 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+				className: "text-xs font-medium text-muted",
+				children: "Cast DexDiffusion will create"
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", {
+				className: "mt-1 flex flex-wrap gap-1.5",
+				children: view.parsed.speakers.map((sp) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", {
+					className: "rounded-sm border border-line bg-inset px-2 py-1 font-mono text-xs",
+					children: [
+						sp.name,
+						" ",
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+							className: "text-subtle",
+							children: ["· ", sp.lines]
+						})
+					]
+				}, sp.key))
+			})] }) : null,
+			view.parsed.warnings.map((w) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-xs text-warn",
+				children: w
+			}, w)),
+			tooLongForModel ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+				className: "text-xs text-subtle",
+				children: [
+					"Longer than ",
+					DD_LLM_MAX_CHARS.toLocaleString(),
+					" characters: DexDiffusion's optional model parse will refuse it, but the deterministic parse used here has no limit."
+				]
+			}) : null,
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "grid gap-2 md:grid-cols-2",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("label", {
+					className: "flex flex-col gap-1 text-xs text-muted",
+					children: ["Project title (optional)", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+						className: field,
+						value: props.title,
+						placeholder: view.parsed.title ?? "Untitled drama",
+						onChange: (event) => props.setTitle(event.target.value),
+						"aria-label": "DexDiffusion project title"
+					})]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("label", {
+					className: "flex flex-col gap-1 text-xs text-muted",
+					children: ["Narrator voice name", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+						className: field,
+						value: props.narrator,
+						spellCheck: false,
+						onChange: (event) => props.setNarrator(event.target.value),
+						"aria-label": "DexDiffusion narrator name"
+					})]
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex flex-wrap gap-2",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+						type: "button",
+						className: primary,
+						onClick: props.onExport,
+						"data-testid": "export-dexdiffusion",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Download, {
+							className: "size-4",
+							"aria-hidden": "true"
+						}), "Export for DexDiffusion"]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+						type: "button",
+						className: ghost,
+						onClick: props.onCopyScript,
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ClipboardCopy, {
+							className: "size-4",
+							"aria-hidden": "true"
+						}), "Copy script"]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						type: "button",
+						className: ghost,
+						onClick: props.onCopyCommand,
+						children: "Copy send command"
+					})
+				]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h3", {
+				className: "text-xs font-medium text-muted",
+				children: [
+					"Differences from DexParse (",
+					view.issues.length,
+					")"
+				]
+			}), view.issues.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "mt-1 text-sm text-muted",
+				children: "None. DexDiffusion reads every line the way DexParse does."
+			}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", {
+				className: "mt-1",
+				"data-testid": "dexdiffusion-issues",
+				children: view.issues.map((issue, index) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", {
+					className: "border-b border-line",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+						type: "button",
+						className: "flex w-full flex-col gap-1 py-2 text-left hover:bg-surface",
+						onClick: () => props.onFocusRange(issue.start, issue.end),
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: cn("text-sm", issue.severity === "warning" ? "text-warn" : "text-muted"),
+							children: issue.message
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+							className: "font-mono text-xs text-subtle",
+							children: [
+								"L",
+								issue.line,
+								" · DexParse ",
+								issue.dexparse,
+								" → DexDiffusion ",
+								issue.dexdiffusion,
+								" · ",
+								issue.code
+							]
+						})]
+					})
+				}, `${issue.code}-${issue.line}-${index}`))
+			})] })
+		] })]
 	});
 }
 function SegmentRow({ segment, selectedId, onSelect, nested }) {

@@ -1,8 +1,12 @@
 {
   "name": "app-builder-workspace",
+  "version": "1.1.0",
   "private": true,
   "sideEffects": false,
   "type": "module",
+  "bin": {
+    "dexparse-dexdiffusion": "bin/dexparse-dexdiffusion.mjs"
+  },
   "overrides": {
     "nf3": "0.3.17"
   },
@@ -12,13 +16,18 @@
     "db:migrate": "node scripts/migrate.mjs",
     "build:dev": "node scripts/with-app-env.mjs vite build --mode development",
     "preview": "node scripts/with-app-env.mjs vite preview",
+    "app": "npm run build && VITE_GROK_EXTENSIONS=0 npm run preview",
     "preview:restart": "node scripts/preview.mjs restart",
     "preview:stop": "node scripts/preview.mjs stop",
     "typecheck": "tsc --noEmit",
     "check:auth": "node scripts/check-auth-invariant.mjs",
-    "test": "node --test 'scripts/**/*.test.mjs' && node --experimental-strip-types --test src/lib/app-data/app-data.test.ts src/lib/app-data/readiness-schedule.test.ts src/lib/auth/gate-identity.test.ts src/lib/auth/sign-in-gate.test.ts src/lib/preview-path-prefix.test.ts src/lib/dexparse/parser.test.ts",
+    "test": "node --test 'scripts/**/*.test.mjs' bin/dexparse-dexdiffusion.test.mjs && node --experimental-strip-types --test src/lib/app-data/app-data.test.ts src/lib/app-data/readiness-schedule.test.ts src/lib/auth/gate-identity.test.ts src/lib/auth/sign-in-gate.test.ts src/lib/preview-path-prefix.test.ts src/lib/dexparse/parser.test.ts src/lib/dexparse/dexdiffusion/dexdiffusion.test.ts src/lib/pwa/use-pwa.test.ts",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "dexdiffusion": "node bin/dexparse-dexdiffusion.mjs",
+    "dexdiffusion:golden": "node scripts/dexdiffusion-golden.mjs",
+    "pwa:icons": "node scripts/pwa/generate-icons.mjs",
+    "test:pwa": "node scripts/pwa/pwa-browser-check.mjs"
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.5.4",

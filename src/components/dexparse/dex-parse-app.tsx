@@ -1,11 +1,24 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
+  AudioLines,
   Check,
   ClipboardCopy,
   Download,
   FolderOpen,
+  MonitorDown,
+  RefreshCw,
   TriangleAlert,
+  WifiOff,
 } from "lucide-react";
+import {
+  buildDexDiffusionView,
+  DEFAULT_NARRATOR,
+  DD_LLM_MAX_CHARS,
+  dexDiffusionRequestJson,
+  scriptFromJson,
+  type DexDiffusionView,
+} from "@/lib/dexparse/dexdiffusion/compat";
+import { usePwa } from "@/lib/pwa/use-pwa";
 import { buildCoverageFixture } from "@/lib/dexparse/fixture";
 import {
   ambiguousTargets,
@@ -50,6 +63,10 @@ function focusScript(start: number, end: number) {
   visible.setSelectionRange(start, Math.max(start, end));
 }
 
+function shellQuote(value: string): string {
+  return `'${value.replace(/'/g, `'\\''`)}'`;
+}
+
 function download(filename: string, contents: string) {
   const blob = new Blob([contents], { type: "application/json" });
   const url = URL.createObjectURL(blob);
@@ -80,7 +97,10 @@ export function DexParseApp() {
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [rejected, setRejected] = useState<string[]>([]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [tab, setTab] = useState<"structure" | "playback" | "diagnostics">("structure");
+  const [tab, setTab] = useState<ResultTab>("structure");
+  const [narrator, setNarrator] = useState(DEFAULT_NARRATOR);
+  const [ddTitle, setDdTitle] = useState("");
+  const pwa = usePwa();
   const [mobile, setMobile] = useState<"script" | "inspect">("script");
   const [leftPct, setLeftPct] = useState(46);
   const [confirmName, setConfirmName] = useState<string | null>(null);
@@ -96,6 +116,10 @@ export function DexParseApp() {
   const dirty = script !== parsedText;
   const validation = parsed.validation;
   const playback = buildPlayback(parsedText, parsed.segments);
+  const dexDiffusion = useMemo(
+    () => buildDexDiffusionView(parsedText, parsed.segments, { narrator }),
+    [parsedText, parsed.segments, narrator],
+  );
 
   useEffect(() => {
     let cancelled = false;
@@ -156,7 +180,7 @@ export function DexParseApp() {
     setCopyState(null);
     try {
       const { parseOffThread } = await import("@/lib/dexparse/parse-off-thread");
-      let next = await parseOffThread(script);
+      const next = await parseOffThread(script);
       if (mode === "ollama") {
         const targets = ambiguousTargets(next);
         if (targets.length === 0) {
@@ -210,16 +234,53 @@ export function DexParseApp() {
 
   async function readFile(file: File) {
     const lower = file.name.toLowerCase();
-    if (!lower.endsWith(".txt") && !lower.endsWith(".md")) {
-      setNote("Only local UTF-8 .txt and .md files can be imported.");
+    const json = lower.endsWith(".json");
+    if (!lower.endsWith(".txt") && !lower.endsWith(".md") && !json) {
+      setNote("Only local UTF-8 .txt, .md, or DexParse/DexDiffusion .json files can be imported.");
       return;
     }
+    let text: string;
     try {
-      const text = new TextDecoder("utf-8", { fatal: true }).decode(await file.arrayBuffer());
-      loadText(text, `Imported ${file.name}. The file stayed on this device.`);
+      text = new TextDecoder("utf-8", { fatal: true }).decode(await file.arrayBuffer());
     } catch {
       setNote("That file is not valid UTF-8 text. Nothing was imported.");
+      return;
     }
+    if (!json) {
+      loadText(text, `Imported ${file.name}. The file stayed on this device.`);
+      return;
+    }
+    let found: ReturnType<typeof scriptFromJson> = null;
+    try {
+      found = scriptFromJson(JSON.parse(text));
+    } catch {
+      found = null;
+    }
+    if (!found) {
+      setNote("That JSON is not a DexParse export, a DexDiffusion script request, or a DexDiffusion drama project. Nothing was imported.");
+      return;
+    }
+    if (found.narrator) setNarrator(found.narrator);
+    if (found.title) setDdTitle(found.title);
+    loadText(found.text, `Imported the script from ${file.name} (${found.from}). The file stayed on this device.`);
+  }
+
+  function exportDexDiffusion() {
+    const name = `dexdiffusion-drama-r${revision}.json`;
+    download(name, dexDiffusionRequestJson(parsedText, { title: ddTitle, narrator }));
+    setCopyState(`Exported ${name}. Send it with: node bin/dexparse-dexdiffusion.mjs send ${name}`);
+  }
+
+  async function copyForDexDiffusion() {
+    await navigator.clipboard.writeText(parsedText);
+    setCopyState("Script copied. Paste it into DexDiffusion > Audio > Script.");
+  }
+
+  async function copySendCommand() {
+    const name = `dexdiffusion-drama-r${revision}.json`;
+    const flags = [ddTitle.trim() ? ` --title ${shellQuote(ddTitle.trim())}` : "", narrator.trim() && narrator.trim() !== DEFAULT_NARRATOR ? ` --narrator ${shellQuote(narrator.trim())}` : ""].join("");
+    await navigator.clipboard.writeText(`node bin/dexparse-dexdiffusion.mjs send ~/Downloads/${name}${flags}`);
+    setCopyState("Send command copied. Export the file first, then run the command from the DexParse folder.");
   }
 
   async function exportJson(force: boolean) {
@@ -285,6 +346,18 @@ export function DexParseApp() {
           />
         </div>
         <div className="ml-auto flex flex-wrap items-center gap-2">
+          {pwa.offline ? (
+            <span className="inline-flex h-8 items-center gap-1.5 rounded-sm border border-line px-2 text-xs text-muted" data-testid="offline-badge">
+              <WifiOff className="size-3.5" aria-hidden="true" />
+              Offline · parsing still works
+            </span>
+          ) : null}
+          {pwa.canInstall && !pwa.installed ? (
+            <button type="button" className={ghost} onClick={() => void pwa.install()} data-testid="install-app">
+              <MonitorDown className="size-4" aria-hidden="true" />
+              Install
+            </button>
+          ) : null}
           <button type="button" className={ghost} onClick={() => grammarRef.current?.showModal()}>
             Grammar
           </button>
@@ -308,8 +381,10 @@ export function DexParseApp() {
         <input
           ref={fileRef}
           type="file"
-          accept=".txt,.md,text/plain,text/markdown"
+          accept=".txt,.md,.json,text/plain,text/markdown,application/json"
           className="sr-only"
+          aria-label="Import a script file"
+          tabIndex={-1}
           onChange={(event) => {
             const file = event.target.files?.[0];
             if (file) void readFile(file);
@@ -317,6 +392,19 @@ export function DexParseApp() {
           }}
         />
       </header>
+      {pwa.updateReady ? (
+        <div
+          role="status"
+          data-testid="update-banner"
+          className="flex flex-wrap items-center justify-between gap-2 border-b border-line bg-surface px-3 py-2 text-sm md:px-4"
+        >
+          <span>A new version of DexParse is ready. Your script is kept.</span>
+          <button type="button" className={primary} onClick={pwa.applyUpdate}>
+            <RefreshCw className="size-4" aria-hidden="true" />
+            Reload to update
+          </button>
+        </div>
+      ) : null}
 
       {mode === "ollama" ? (
         <div className="flex flex-wrap items-end gap-2 border-b border-line bg-surface px-3 py-2 md:px-4">
@@ -440,6 +528,15 @@ export function DexParseApp() {
           }}
           onCopyPlayback={() => void copyPlayback()}
           copyState={copyState}
+          dexDiffusion={dexDiffusion}
+          narrator={narrator}
+          setNarrator={setNarrator}
+          ddTitle={ddTitle}
+          setDdTitle={setDdTitle}
+          onExportDexDiffusion={exportDexDiffusion}
+          onCopyForDexDiffusion={() => void copyForDexDiffusion()}
+          onCopySendCommand={() => void copySendCommand()}
+          onFocusRange={(start, end) => focusScript(start, end)}
         />
       </div>
 
@@ -485,6 +582,18 @@ export function DexParseApp() {
             }}
             onCopyPlayback={() => void copyPlayback()}
             copyState={copyState}
+            dexDiffusion={dexDiffusion}
+            narrator={narrator}
+            setNarrator={setNarrator}
+            ddTitle={ddTitle}
+            setDdTitle={setDdTitle}
+            onExportDexDiffusion={exportDexDiffusion}
+            onCopyForDexDiffusion={() => void copyForDexDiffusion()}
+            onCopySendCommand={() => void copySendCommand()}
+            onFocusRange={(start, end) => {
+              setMobile("script");
+              window.setTimeout(() => focusScript(start, end), 0);
+            }}
           />
         )}
       </div>
@@ -507,6 +616,10 @@ export function DexParseApp() {
               <li>[pause 2s], [SFX: …], [MUSIC: …], [AMBIENCE: …] — cues. Missing units stay pauses and raise a warning.</li>
               <li>Any other bracket is preserved as unknown and counted as not interpreted.</li>
               <li>Blank lines stay blank. The original characters are the source of truth.</li>
+              <li>
+                The DexDiffusion tab runs DexDiffusion&apos;s own Drama (Audio &gt; Script) parser on the same text and lists every line where the
+                two grammars disagree, such as pauses in milliseconds or a TITLE: line DexDiffusion would read aloud.
+              </li>
             </ul>
             <p className="mt-4 text-xs">
               Ollama is optional, loopback only, and never required. Suggestions do not change the script until you accept them.
@@ -555,6 +668,14 @@ const primary =
 const field =
   "h-11 rounded-sm border border-line bg-inset px-3 text-sm text-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent";
 const mobileTab = "h-11 flex-1 text-sm font-medium text-subtle";
+
+type ResultTab = "structure" | "playback" | "diagnostics" | "dexdiffusion";
+const TAB_LABEL: Record<ResultTab, string> = {
+  structure: "Blocks",
+  playback: "Playback",
+  diagnostics: "Diagnostics",
+  dexdiffusion: "DexDiffusion",
+};
 
 function ModeButton({ pressed, onClick, label }: { pressed: boolean; onClick: () => void; label: string }) {
   return (
@@ -636,8 +757,8 @@ function InspectPane(props: {
   onAccept: (id: string) => void;
   onAcceptAll: () => void;
   onDismiss: (id: string) => void;
-  tab: "structure" | "playback" | "diagnostics";
-  setTab: (tab: "structure" | "playback" | "diagnostics") => void;
+  tab: ResultTab;
+  setTab: (tab: ResultTab) => void;
   segments: Segment[];
   playback: PlaybackEvent[];
   diagnostics: ParseOutput["diagnostics"];
@@ -648,6 +769,15 @@ function InspectPane(props: {
   onSelect: (segment: Segment) => void;
   onCopyPlayback: () => void;
   copyState: string | null;
+  dexDiffusion: DexDiffusionView;
+  narrator: string;
+  setNarrator: (value: string) => void;
+  ddTitle: string;
+  setDdTitle: (value: string) => void;
+  onExportDexDiffusion: () => void;
+  onCopyForDexDiffusion: () => void;
+  onCopySendCommand: () => void;
+  onFocusRange: (start: number, end: number) => void;
 }) {
   const verified = !props.dirty && props.validation.status === "verified" && props.validation.sourceChars > 0;
   const partial = !props.dirty && props.validation.status === "partial";
@@ -740,16 +870,17 @@ function InspectPane(props: {
       ) : null}
 
       <div className="flex border-b border-line" role="tablist" aria-label="Result views">
-        {(["structure", "playback", "diagnostics"] as const).map((name) => (
+        {(["structure", "playback", "diagnostics", "dexdiffusion"] as const).map((name) => (
           <button
             key={name}
             type="button"
             role="tab"
             aria-selected={props.tab === name}
-            className={cn("h-11 flex-1 text-sm capitalize", props.tab === name ? "text-fg" : "text-subtle")}
+            data-testid={`tab-${name}`}
+            className={cn("h-11 flex-1 text-sm", props.tab === name ? "text-fg" : "text-subtle")}
             onClick={() => props.setTab(name)}
           >
-            {name === "structure" ? "Blocks" : name === "playback" ? "Playback" : "Diagnostics"}
+            {TAB_LABEL[name]}
           </button>
         ))}
       </div>
@@ -816,8 +947,178 @@ function InspectPane(props: {
             )}
           </ul>
         ) : null}
+        {props.tab === "dexdiffusion" ? (
+          <DexDiffusionPanel
+            dirty={props.dirty}
+            view={props.dexDiffusion}
+            narrator={props.narrator}
+            setNarrator={props.setNarrator}
+            title={props.ddTitle}
+            setTitle={props.setDdTitle}
+            onExport={props.onExportDexDiffusion}
+            onCopyScript={props.onCopyForDexDiffusion}
+            onCopyCommand={props.onCopySendCommand}
+            onFocusRange={props.onFocusRange}
+          />
+        ) : null}
       </div>
     </section>
+  );
+}
+
+function DexDiffusionPanel(props: {
+  dirty: boolean;
+  view: DexDiffusionView;
+  narrator: string;
+  setNarrator: (value: string) => void;
+  title: string;
+  setTitle: (value: string) => void;
+  onExport: () => void;
+  onCopyScript: () => void;
+  onCopyCommand: () => void;
+  onFocusRange: (start: number, end: number) => void;
+}) {
+  const { view } = props;
+  const stats: Array<[string, number]> = [
+    ["Scenes", view.stats.scenes],
+    ["Lines", view.stats.lines],
+    ["Dialogue", view.stats.dialogue],
+    ["Narration", view.stats.narration],
+    ["Cues", view.stats.cues],
+    ["Pauses", view.stats.pauses],
+  ];
+  const tooLongForModel = view.parsed.source_length > DD_LLM_MAX_CHARS;
+  return (
+    <div className="flex flex-col gap-4 px-3 py-3 md:px-4" data-testid="dexdiffusion-panel">
+      <div>
+        <p className="flex items-center gap-2 text-sm font-medium">
+          <AudioLines className="size-4 text-muted" aria-hidden="true" />
+          DexDiffusion · Audio &gt; Script
+        </p>
+        <p className="mt-1 text-xs text-subtle">
+          DexDiffusion&apos;s own Drama parser, run here on the same text. Nothing is sent anywhere.
+        </p>
+      </div>
+      {props.dirty ? (
+        <p className="text-sm text-warn">The script changed. Parse again to update this view.</p>
+      ) : (
+        <>
+          <div aria-live="polite" data-testid="dexdiffusion-status">
+            {view.ready ? (
+              <p className="flex items-start gap-2 text-sm text-ok">
+                <Check className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
+                <span>
+                  Ready for DexDiffusion. Its coverage check passes ({view.coverage.classified_chars} of {view.coverage.total_chars} characters).
+                </span>
+              </p>
+            ) : view.stats.lines === 0 ? (
+              <p className="text-sm text-muted">DexDiffusion would find no lines in this script.</p>
+            ) : (
+              <p className="flex items-start gap-2 text-sm text-warn">
+                <TriangleAlert className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
+                <span>DexDiffusion would import this, but its own source check fails. See the lines below.</span>
+              </p>
+            )}
+            {view.warnings > 0 ? (
+              <p className="mt-1 text-xs text-warn">
+                {view.warnings} line{view.warnings === 1 ? "" : "s"} would sound different in DexDiffusion than DexParse shows.
+              </p>
+            ) : null}
+          </div>
+          <dl className="grid grid-cols-3 gap-x-4 gap-y-2 font-mono text-xs tabular-nums">
+            {stats.map(([label, value]) => (
+              <div key={label}>
+                <dt className="text-subtle">{label}</dt>
+                <dd className="text-fg">{value}</dd>
+              </div>
+            ))}
+          </dl>
+          {view.parsed.speakers.length > 0 ? (
+            <div>
+              <h3 className="text-xs font-medium text-muted">Cast DexDiffusion will create</h3>
+              <ul className="mt-1 flex flex-wrap gap-1.5">
+                {view.parsed.speakers.map((sp) => (
+                  <li key={sp.key} className="rounded-sm border border-line bg-inset px-2 py-1 font-mono text-xs">
+                    {sp.name} <span className="text-subtle">· {sp.lines}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+          {view.parsed.warnings.map((w) => (
+            <p key={w} className="text-xs text-warn">
+              {w}
+            </p>
+          ))}
+          {tooLongForModel ? (
+            <p className="text-xs text-subtle">
+              Longer than {DD_LLM_MAX_CHARS.toLocaleString()} characters: DexDiffusion&apos;s optional model parse will refuse it, but the
+              deterministic parse used here has no limit.
+            </p>
+          ) : null}
+          <div className="grid gap-2 md:grid-cols-2">
+            <label className="flex flex-col gap-1 text-xs text-muted">
+              Project title (optional)
+              <input
+                className={field}
+                value={props.title}
+                placeholder={view.parsed.title ?? "Untitled drama"}
+                onChange={(event) => props.setTitle(event.target.value)}
+                aria-label="DexDiffusion project title"
+              />
+            </label>
+            <label className="flex flex-col gap-1 text-xs text-muted">
+              Narrator voice name
+              <input
+                className={field}
+                value={props.narrator}
+                spellCheck={false}
+                onChange={(event) => props.setNarrator(event.target.value)}
+                aria-label="DexDiffusion narrator name"
+              />
+            </label>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <button type="button" className={primary} onClick={props.onExport} data-testid="export-dexdiffusion">
+              <Download className="size-4" aria-hidden="true" />
+              Export for DexDiffusion
+            </button>
+            <button type="button" className={ghost} onClick={props.onCopyScript}>
+              <ClipboardCopy className="size-4" aria-hidden="true" />
+              Copy script
+            </button>
+            <button type="button" className={ghost} onClick={props.onCopyCommand}>
+              Copy send command
+            </button>
+          </div>
+          <div>
+            <h3 className="text-xs font-medium text-muted">
+              Differences from DexParse ({view.issues.length})
+            </h3>
+            {view.issues.length === 0 ? (
+              <p className="mt-1 text-sm text-muted">None. DexDiffusion reads every line the way DexParse does.</p>
+            ) : (
+              <ul className="mt-1" data-testid="dexdiffusion-issues">
+                {view.issues.map((issue, index) => (
+                  <li key={`${issue.code}-${issue.line}-${index}`} className="border-b border-line">
+                    <button
+                      type="button"
+                      className="flex w-full flex-col gap-1 py-2 text-left hover:bg-surface"
+                      onClick={() => props.onFocusRange(issue.start, issue.end)}
+                    >
+                      <span className={cn("text-sm", issue.severity === "warning" ? "text-warn" : "text-muted")}>{issue.message}</span>
+                      <span className="font-mono text-xs text-subtle">
+                        L{issue.line} · DexParse {issue.dexparse} → DexDiffusion {issue.dexdiffusion} · {issue.code}
+                      </span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </>
+      )}
+    </div>
   );
 }
 

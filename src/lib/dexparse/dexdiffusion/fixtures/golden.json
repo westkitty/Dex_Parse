@@ -1,0 +1,3665 @@
+{
+ "reference": {
+  "repo": "westkitty/Image_Gen",
+  "file": "operator-console/drama.js",
+  "commit": "df765a1",
+  "schema": "dexdiffusion.drama_project.v2"
+ },
+ "generated_by": "scripts/dexdiffusion-golden.mjs",
+ "cases": [
+  {
+   "name": "dexparse-sample",
+   "script": "TITLE: Sample — not your script\n\nINT. KITCHEN — NIGHT\n\nRain ticks the window. The clock is wrong.\n\nMAYA: We can leave after this [pause 2s] if you want.\nJON (whispering): Someone is in the hall.\nMAYA: [quietly] Then we wait. [SFX: floorboard]\n\n[AMBIENCE: rain on glass]\n[MUSIC: low strings]\n\nRemember: this line is prose, not a speaker.\n",
+   "opts": {},
+   "parsed": {
+    "source_length": 337,
+    "title": "INT. KITCHEN — NIGHT",
+    "scenes": [
+     {
+      "id": "sc-01",
+      "title": "Scene 1",
+      "lines": [
+       {
+        "id": "ln-001",
+        "speaker": "NARRATOR",
+        "speaker_key": "NARRATOR",
+        "kind": "narration",
+        "text": "TITLE: Sample — not your script",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 0,
+         "end": 31
+        },
+        "takes": [],
+        "active_take_id": null
+       }
+      ]
+     },
+     {
+      "id": "sc-02",
+      "title": "INT. KITCHEN — NIGHT",
+      "lines": [
+       {
+        "id": "ln-002",
+        "speaker": "NARRATOR",
+        "speaker_key": "NARRATOR",
+        "kind": "narration",
+        "text": "Rain ticks the window. The clock is wrong.",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 55,
+         "end": 97
+        },
+        "takes": [],
+        "active_take_id": null
+       },
+       {
+        "id": "ln-003",
+        "speaker": "MAYA",
+        "speaker_key": "MAYA",
+        "kind": "dialogue",
+        "text": "We can leave after this [pause 2s] if you want.",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 105,
+         "end": 152
+        },
+        "takes": [],
+        "active_take_id": null
+       },
+       {
+        "id": "ln-004",
+        "speaker": "JON",
+        "speaker_key": "JON",
+        "kind": "dialogue",
+        "text": "Someone is in the hall.",
+        "direction": "whispering",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 171,
+         "end": 194
+        },
+        "takes": [],
+        "active_take_id": null
+       },
+       {
+        "id": "ln-005",
+        "speaker": "MAYA",
+        "speaker_key": "MAYA",
+        "kind": "dialogue",
+        "text": "Then we wait. [SFX: floorboard]",
+        "direction": "quietly",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 201,
+         "end": 242
+        },
+        "takes": [],
+        "active_take_id": null
+       },
+       {
+        "id": "ln-006",
+        "speaker": "NARRATOR",
+        "speaker_key": "NARRATOR",
+        "kind": "direction",
+        "text": "AMBIENCE: rain on glass",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": false,
+        "src": {
+         "start": 244,
+         "end": 269
+        },
+        "takes": [],
+        "active_take_id": null,
+        "cue": {
+         "role": "ambience",
+         "description": "rain on glass",
+         "params": {}
+        }
+       },
+       {
+        "id": "ln-007",
+        "speaker": "NARRATOR",
+        "speaker_key": "NARRATOR",
+        "kind": "direction",
+        "text": "MUSIC: low strings",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": false,
+        "src": {
+         "start": 270,
+         "end": 290
+        },
+        "takes": [],
+        "active_take_id": null,
+        "cue": {
+         "role": "music",
+         "description": "low strings",
+         "params": {}
+        }
+       },
+       {
+        "id": "ln-008",
+        "speaker": "NARRATOR",
+        "speaker_key": "NARRATOR",
+        "kind": "narration",
+        "text": "Remember: this line is prose, not a speaker.",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 292,
+         "end": 336
+        },
+        "takes": [],
+        "active_take_id": null
+       }
+      ]
+     }
+    ],
+    "speakers": [
+     {
+      "key": "NARRATOR",
+      "name": "NARRATOR",
+      "lines": 3,
+      "kinds": {
+       "dialogue": 0,
+       "narration": 3
+      }
+     },
+     {
+      "key": "MAYA",
+      "name": "MAYA",
+      "lines": 2,
+      "kinds": {
+       "dialogue": 2,
+       "narration": 0
+      }
+     },
+     {
+      "key": "JON",
+      "name": "JON",
+      "lines": 1,
+      "kinds": {
+       "dialogue": 1,
+       "narration": 0
+      }
+     }
+    ],
+    "warnings": [],
+    "spans": [
+     {
+      "start": 0,
+      "end": 31,
+      "class": "narration",
+      "line_id": "ln-001"
+     },
+     {
+      "start": 33,
+      "end": 53,
+      "class": "heading",
+      "line_id": null
+     },
+     {
+      "start": 55,
+      "end": 97,
+      "class": "narration",
+      "line_id": "ln-002"
+     },
+     {
+      "start": 99,
+      "end": 105,
+      "class": "syntax",
+      "line_id": "ln-003"
+     },
+     {
+      "start": 105,
+      "end": 152,
+      "class": "dialogue",
+      "line_id": "ln-003"
+     },
+     {
+      "start": 153,
+      "end": 171,
+      "class": "syntax",
+      "line_id": "ln-004"
+     },
+     {
+      "start": 171,
+      "end": 194,
+      "class": "dialogue",
+      "line_id": "ln-004"
+     },
+     {
+      "start": 195,
+      "end": 201,
+      "class": "syntax",
+      "line_id": "ln-005"
+     },
+     {
+      "start": 201,
+      "end": 210,
+      "class": "direction",
+      "line_id": "ln-005"
+     },
+     {
+      "start": 211,
+      "end": 242,
+      "class": "dialogue",
+      "line_id": "ln-005"
+     },
+     {
+      "start": 244,
+      "end": 269,
+      "class": "direction",
+      "line_id": "ln-006"
+     },
+     {
+      "start": 270,
+      "end": 290,
+      "class": "direction",
+      "line_id": "ln-007"
+     },
+     {
+      "start": 292,
+      "end": 336,
+      "class": "narration",
+      "line_id": "ln-008"
+     }
+    ]
+   },
+   "coverage": {
+    "ok": true,
+    "unclassified": [],
+    "mismatches": [],
+    "problems": [],
+    "counts": {
+     "dialogue": 84,
+     "narration": 98,
+     "heading": 17,
+     "direction": 49,
+     "pause": 0,
+     "syntax": 26
+    },
+    "classified_chars": 274,
+    "total_chars": 274
+   },
+   "project": {
+    "title": "INT. KITCHEN — NIGHT",
+    "source_sha256": "25fa4447770e15260206ce7cb464e4018d5c02050b115271d6c001536e200baa",
+    "source_coverage": {
+     "ok": true,
+     "counts": {
+      "dialogue": 84,
+      "narration": 98,
+      "heading": 17,
+      "direction": 49,
+      "pause": 0,
+      "syntax": 26
+     },
+     "unclassified": 0,
+     "mismatches": 0,
+     "classified_chars": 274,
+     "total_chars": 274,
+     "method": "deterministic-spans"
+    },
+    "actors": [
+     "NARRATOR",
+     "MAYA",
+     "JON"
+    ]
+   }
+  },
+  {
+   "name": "dexparse-coverage-6667",
+   "script": "TITLE: Generated coverage fixture\n\nThis is a generated DexParse test fixture, not a user script.\n\nINT. COUNTING ROOM — NIGHT\n\nA lamp hums over an empty bench.\n\nMAYA: Mark the span [pause 1s] and keep going.\nJON (quietly): The count has to close.\nMAYA: [softly] Listen [SFX: clock tick] then wait.\n\n[MUSIC: single piano note]\n[AMBIENCE: faint hiss]\n[SFX: page turn]\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nNarration fills the remaining classified characters.\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+   "opts": {},
+   "parsed": {
+    "source_length": 6667,
+    "title": "INT. COUNTING ROOM — NIGHT",
+    "scenes": [
+     {
+      "id": "sc-01",
+      "title": "Scene 1",
+      "lines": [
+       {
+        "id": "ln-001",
+        "speaker": "NARRATOR",
+        "speaker_key": "NARRATOR",
+        "kind": "narration",
+        "text": "TITLE: Generated coverage fixture",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 0,
+         "end": 33
+        },
+        "takes": [],
+        "active_take_id": null
+       },
+       {
+        "id": "ln-002",
+        "speaker": "NARRATOR",
+        "speaker_key": "NARRATOR",
+        "kind": "narration",
+        "text": "This is a generated DexParse test fixture, not a user script.",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 35,
+         "end": 96
+        },
+        "takes": [],
+        "active_take_id": null
+       }
+      ]
+     },
+     {
+      "id": "sc-02",
+      "title": "INT. COUNTING ROOM — NIGHT",
+      "lines": [
+       {
+        "id": "ln-003",
+        "speaker": "NARRATOR",
+        "speaker_key": "NARRATOR",
+        "kind": "narration",
+        "text": "A lamp hums over an empty bench.",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 126,
+         "end": 158
+        },
+        "takes": [],
+        "active_take_id": null
+       },
+       {
+        "id": "ln-004",
+        "speaker": "MAYA",
+        "speaker_key": "MAYA",
+        "kind": "dialogue",
+        "text": "Mark the span [pause 1s] and keep going.",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 166,
+         "end": 206
+        },
+        "takes": [],
+        "active_take_id": null
+       },
+       {
+        "id": "ln-005",
+        "speaker": "JON",
+        "speaker_key": "JON",
+        "kind": "dialogue",
+        "text": "The count has to close.",
+        "direction": "quietly",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 222,
+         "end": 245
+        },
+        "takes": [],
+        "active_take_id": null
+       },
+       {
+        "id": "ln-006",
+        "speaker": "MAYA",
+        "speaker_key": "MAYA",
+        "kind": "dialogue",
+        "text": "Listen [SFX: clock tick] then wait.",
+        "direction": "softly",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 252,
+         "end": 296
+        },
+        "takes": [],
+        "active_take_id": null
+       },
+       {
+        "id": "ln-007",
+        "speaker": "NARRATOR",
+        "speaker_key": "NARRATOR",
+        "kind": "direction",
+        "text": "MUSIC: single piano note",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": false,
+        "src": {
+         "start": 298,
+         "end": 324
+        },
+        "takes": [],
+        "active_take_id": null,
+        "cue": {
+         "role": "music",
+         "description": "single piano note",
+         "params": {}
+        }
+       },
+       {
+        "id": "ln-008",
+        "speaker": "NARRATOR",
+        "speaker_key": "NARRATOR",
+        "kind": "direction",
+        "text": "AMBIENCE: faint hiss",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": false,
+        "src": {
+         "start": 325,
+         "end": 347
+        },
+        "takes": [],
+        "active_take_id": null,
+        "cue": {
+         "role": "ambience",
+         "description": "faint hiss",
+         "params": {}
+        }
+       },
+       {
+        "id": "ln-009",
+        "speaker": "NARRATOR",
+        "speaker_key": "NARRATOR",
+        "kind": "direction",
+        "text": "SFX: page turn",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": false,
+        "src": {
+         "start": 348,
+         "end": 364
+        },
+        "takes": [],
+        "active_take_id": null,
+        "cue": {
+         "role": "sfx",
+         "description": "page turn",
+         "params": {}
+        }
+       },
+       {
+        "id": "ln-010",
+        "speaker": "NARRATOR",
+        "speaker_key": "NARRATOR",
+        "kind": "narration",
+        "text": "Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. Narration fills the remaining classified characters. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 365,
+         "end": 6667
+        },
+        "takes": [],
+        "active_take_id": null
+       }
+      ]
+     }
+    ],
+    "speakers": [
+     {
+      "key": "NARRATOR",
+      "name": "NARRATOR",
+      "lines": 4,
+      "kinds": {
+       "dialogue": 0,
+       "narration": 4
+      }
+     },
+     {
+      "key": "MAYA",
+      "name": "MAYA",
+      "lines": 2,
+      "kinds": {
+       "dialogue": 2,
+       "narration": 0
+      }
+     },
+     {
+      "key": "JON",
+      "name": "JON",
+      "lines": 1,
+      "kinds": {
+       "dialogue": 1,
+       "narration": 0
+      }
+     }
+    ],
+    "warnings": [],
+    "spans": [
+     {
+      "start": 0,
+      "end": 33,
+      "class": "narration",
+      "line_id": "ln-001"
+     },
+     {
+      "start": 35,
+      "end": 96,
+      "class": "narration",
+      "line_id": "ln-002"
+     },
+     {
+      "start": 98,
+      "end": 124,
+      "class": "heading",
+      "line_id": null
+     },
+     {
+      "start": 126,
+      "end": 158,
+      "class": "narration",
+      "line_id": "ln-003"
+     },
+     {
+      "start": 160,
+      "end": 166,
+      "class": "syntax",
+      "line_id": "ln-004"
+     },
+     {
+      "start": 166,
+      "end": 206,
+      "class": "dialogue",
+      "line_id": "ln-004"
+     },
+     {
+      "start": 207,
+      "end": 222,
+      "class": "syntax",
+      "line_id": "ln-005"
+     },
+     {
+      "start": 222,
+      "end": 245,
+      "class": "dialogue",
+      "line_id": "ln-005"
+     },
+     {
+      "start": 246,
+      "end": 252,
+      "class": "syntax",
+      "line_id": "ln-006"
+     },
+     {
+      "start": 252,
+      "end": 260,
+      "class": "direction",
+      "line_id": "ln-006"
+     },
+     {
+      "start": 261,
+      "end": 296,
+      "class": "dialogue",
+      "line_id": "ln-006"
+     },
+     {
+      "start": 298,
+      "end": 324,
+      "class": "direction",
+      "line_id": "ln-007"
+     },
+     {
+      "start": 325,
+      "end": 347,
+      "class": "direction",
+      "line_id": "ln-008"
+     },
+     {
+      "start": 348,
+      "end": 364,
+      "class": "direction",
+      "line_id": "ln-009"
+     },
+     {
+      "start": 365,
+      "end": 417,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 418,
+      "end": 470,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 471,
+      "end": 523,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 524,
+      "end": 576,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 577,
+      "end": 629,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 630,
+      "end": 682,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 683,
+      "end": 735,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 736,
+      "end": 788,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 789,
+      "end": 841,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 842,
+      "end": 894,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 895,
+      "end": 947,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 948,
+      "end": 1000,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 1001,
+      "end": 1053,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 1054,
+      "end": 1106,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 1107,
+      "end": 1159,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 1160,
+      "end": 1212,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 1213,
+      "end": 1265,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 1266,
+      "end": 1318,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 1319,
+      "end": 1371,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 1372,
+      "end": 1424,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 1425,
+      "end": 1477,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 1478,
+      "end": 1530,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 1531,
+      "end": 1583,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 1584,
+      "end": 1636,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 1637,
+      "end": 1689,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 1690,
+      "end": 1742,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 1743,
+      "end": 1795,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 1796,
+      "end": 1848,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 1849,
+      "end": 1901,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 1902,
+      "end": 1954,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 1955,
+      "end": 2007,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 2008,
+      "end": 2060,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 2061,
+      "end": 2113,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 2114,
+      "end": 2166,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 2167,
+      "end": 2219,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 2220,
+      "end": 2272,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 2273,
+      "end": 2325,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 2326,
+      "end": 2378,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 2379,
+      "end": 2431,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 2432,
+      "end": 2484,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 2485,
+      "end": 2537,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 2538,
+      "end": 2590,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 2591,
+      "end": 2643,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 2644,
+      "end": 2696,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 2697,
+      "end": 2749,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 2750,
+      "end": 2802,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 2803,
+      "end": 2855,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 2856,
+      "end": 2908,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 2909,
+      "end": 2961,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 2962,
+      "end": 3014,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 3015,
+      "end": 3067,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 3068,
+      "end": 3120,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 3121,
+      "end": 3173,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 3174,
+      "end": 3226,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 3227,
+      "end": 3279,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 3280,
+      "end": 3332,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 3333,
+      "end": 3385,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 3386,
+      "end": 3438,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 3439,
+      "end": 3491,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 3492,
+      "end": 3544,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 3545,
+      "end": 3597,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 3598,
+      "end": 3650,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 3651,
+      "end": 3703,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 3704,
+      "end": 3756,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 3757,
+      "end": 3809,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 3810,
+      "end": 3862,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 3863,
+      "end": 3915,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 3916,
+      "end": 3968,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 3969,
+      "end": 4021,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 4022,
+      "end": 4074,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 4075,
+      "end": 4127,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 4128,
+      "end": 4180,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 4181,
+      "end": 4233,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 4234,
+      "end": 4286,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 4287,
+      "end": 4339,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 4340,
+      "end": 4392,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 4393,
+      "end": 4445,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 4446,
+      "end": 4498,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 4499,
+      "end": 4551,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 4552,
+      "end": 4604,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 4605,
+      "end": 4657,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 4658,
+      "end": 4710,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 4711,
+      "end": 4763,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 4764,
+      "end": 4816,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 4817,
+      "end": 4869,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 4870,
+      "end": 4922,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 4923,
+      "end": 4975,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 4976,
+      "end": 5028,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 5029,
+      "end": 5081,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 5082,
+      "end": 5134,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 5135,
+      "end": 5187,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 5188,
+      "end": 5240,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 5241,
+      "end": 5293,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 5294,
+      "end": 5346,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 5347,
+      "end": 5399,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 5400,
+      "end": 5452,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 5453,
+      "end": 5505,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 5506,
+      "end": 5558,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 5559,
+      "end": 5611,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 5612,
+      "end": 5664,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 5665,
+      "end": 5717,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 5718,
+      "end": 5770,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 5771,
+      "end": 5823,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 5824,
+      "end": 5876,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 5877,
+      "end": 5929,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 5930,
+      "end": 5982,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 5983,
+      "end": 6035,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 6036,
+      "end": 6088,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 6089,
+      "end": 6141,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 6142,
+      "end": 6194,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 6195,
+      "end": 6247,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 6248,
+      "end": 6300,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 6301,
+      "end": 6353,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 6354,
+      "end": 6406,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 6407,
+      "end": 6459,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 6460,
+      "end": 6512,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 6513,
+      "end": 6565,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 6566,
+      "end": 6618,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 6619,
+      "end": 6667,
+      "class": "narration",
+      "line_id": "ln-010"
+     }
+    ]
+   },
+   "coverage": {
+    "ok": true,
+    "unclassified": [],
+    "mismatches": [],
+    "problems": [],
+    "counts": {
+     "dialogue": 82,
+     "narration": 5701,
+     "heading": 22,
+     "direction": 65,
+     "pause": 0,
+     "syntax": 23
+    },
+    "classified_chars": 5893,
+    "total_chars": 5893
+   },
+   "project": {
+    "title": "INT. COUNTING ROOM — NIGHT",
+    "source_sha256": "825350767367612b360e6cae30dee1b80f7e3a874ef2a9ee00a4065b89e693a3",
+    "source_coverage": {
+     "ok": true,
+     "counts": {
+      "dialogue": 82,
+      "narration": 5701,
+      "heading": 22,
+      "direction": 65,
+      "pause": 0,
+      "syntax": 23
+     },
+     "unclassified": 0,
+     "mismatches": 0,
+     "classified_chars": 5893,
+     "total_chars": 5893,
+     "method": "deterministic-spans"
+    },
+    "actors": [
+     "NARRATOR",
+     "MAYA",
+     "JON"
+    ]
+   }
+  },
+  {
+   "name": "studio-drama",
+   "script": "# The Lighthouse Keeper\n\n[AMBIENCE: wind over a rocky shore, loop, fade in 2s]\n\nINT. LIGHTHOUSE STAIRWELL - NIGHT\n\nThe stairs wind upward into the dark. Somewhere above, a shutter bangs.\n\nEDITH: Who left the lamp room open?\nTOM (out of breath): Not me. I've been at the boats all evening.\nEDITH: [quietly] Then someone else is up there.\n\n[pause 1.5s]\n\n[SFX: a heavy door slams, for 1.5s]\n\nTOM\n(whispering)\nWe should go back down.\nRight now.\n\n(beat)\n\nEDITH: No. We finish this.\n\nSCENE 2\n\n[MUSIC: low cello drone, fade out 3s, optional]\n\nNarration can run across\nseveral lines and stays one paragraph.\n\nTom: Edith, wait.\nTom: Please.\n",
+   "opts": {},
+   "parsed": {
+    "source_length": 632,
+    "title": "The Lighthouse Keeper",
+    "scenes": [
+     {
+      "id": "sc-01",
+      "title": "The Lighthouse Keeper",
+      "lines": [
+       {
+        "id": "ln-001",
+        "speaker": "NARRATOR",
+        "speaker_key": "NARRATOR",
+        "kind": "direction",
+        "text": "AMBIENCE: wind over a rocky shore, loop, fade in 2s",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": false,
+        "src": {
+         "start": 25,
+         "end": 78
+        },
+        "takes": [],
+        "active_take_id": null,
+        "cue": {
+         "role": "ambience",
+         "description": "wind over a rocky shore",
+         "params": {
+          "loop": true,
+          "fade_in_s": 2
+         }
+        }
+       }
+      ]
+     },
+     {
+      "id": "sc-02",
+      "title": "INT. LIGHTHOUSE STAIRWELL - NIGHT",
+      "lines": [
+       {
+        "id": "ln-002",
+        "speaker": "NARRATOR",
+        "speaker_key": "NARRATOR",
+        "kind": "narration",
+        "text": "The stairs wind upward into the dark. Somewhere above, a shutter bangs.",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 115,
+         "end": 186
+        },
+        "takes": [],
+        "active_take_id": null
+       },
+       {
+        "id": "ln-003",
+        "speaker": "EDITH",
+        "speaker_key": "EDITH",
+        "kind": "dialogue",
+        "text": "Who left the lamp room open?",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 195,
+         "end": 223
+        },
+        "takes": [],
+        "active_take_id": null
+       },
+       {
+        "id": "ln-004",
+        "speaker": "TOM",
+        "speaker_key": "TOM",
+        "kind": "dialogue",
+        "text": "Not me. I've been at the boats all evening.",
+        "direction": "out of breath",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 245,
+         "end": 288
+        },
+        "takes": [],
+        "active_take_id": null
+       },
+       {
+        "id": "ln-005",
+        "speaker": "EDITH",
+        "speaker_key": "EDITH",
+        "kind": "dialogue",
+        "text": "Then someone else is up there.",
+        "direction": "quietly",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 296,
+         "end": 336
+        },
+        "takes": [],
+        "active_take_id": null
+       },
+       {
+        "id": "ln-006",
+        "speaker": "NARRATOR",
+        "speaker_key": "NARRATOR",
+        "kind": "direction",
+        "text": "SFX: a heavy door slams, for 1.5s",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": false,
+        "src": {
+         "start": 352,
+         "end": 387
+        },
+        "takes": [],
+        "active_take_id": null,
+        "cue": {
+         "role": "sfx",
+         "description": "a heavy door slams",
+         "params": {
+          "duration_s": 1.5
+         }
+        }
+       },
+       {
+        "id": "ln-007",
+        "speaker": "TOM",
+        "speaker_key": "TOM",
+        "kind": "dialogue",
+        "text": "We should go back down. Right now.",
+        "direction": "whispering",
+        "pause_before_s": 1.5,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 406,
+         "end": 440
+        },
+        "takes": [],
+        "active_take_id": null
+       },
+       {
+        "id": "ln-008",
+        "speaker": "EDITH",
+        "speaker_key": "EDITH",
+        "kind": "dialogue",
+        "text": "No. We finish this.",
+        "direction": "",
+        "pause_before_s": 0.6,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 457,
+         "end": 476
+        },
+        "takes": [],
+        "active_take_id": null
+       }
+      ]
+     },
+     {
+      "id": "sc-03",
+      "title": "SCENE 2",
+      "lines": [
+       {
+        "id": "ln-009",
+        "speaker": "NARRATOR",
+        "speaker_key": "NARRATOR",
+        "kind": "direction",
+        "text": "MUSIC: low cello drone, fade out 3s, optional",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": false,
+        "src": {
+         "start": 487,
+         "end": 534
+        },
+        "takes": [],
+        "active_take_id": null,
+        "cue": {
+         "role": "music",
+         "description": "low cello drone",
+         "params": {
+          "fade_out_s": 3,
+          "optional": true
+         }
+        }
+       },
+       {
+        "id": "ln-010",
+        "speaker": "NARRATOR",
+        "speaker_key": "NARRATOR",
+        "kind": "narration",
+        "text": "Narration can run across several lines and stays one paragraph.",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 536,
+         "end": 599
+        },
+        "takes": [],
+        "active_take_id": null
+       },
+       {
+        "id": "ln-011",
+        "speaker": "Tom",
+        "speaker_key": "TOM",
+        "kind": "dialogue",
+        "text": "Edith, wait.",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 606,
+         "end": 618
+        },
+        "takes": [],
+        "active_take_id": null
+       },
+       {
+        "id": "ln-012",
+        "speaker": "Tom",
+        "speaker_key": "TOM",
+        "kind": "dialogue",
+        "text": "Please.",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 624,
+         "end": 631
+        },
+        "takes": [],
+        "active_take_id": null
+       }
+      ]
+     }
+    ],
+    "speakers": [
+     {
+      "key": "NARRATOR",
+      "name": "NARRATOR",
+      "lines": 2,
+      "kinds": {
+       "dialogue": 0,
+       "narration": 2
+      }
+     },
+     {
+      "key": "EDITH",
+      "name": "EDITH",
+      "lines": 3,
+      "kinds": {
+       "dialogue": 3,
+       "narration": 0
+      }
+     },
+     {
+      "key": "TOM",
+      "name": "TOM",
+      "lines": 4,
+      "kinds": {
+       "dialogue": 4,
+       "narration": 0
+      }
+     }
+    ],
+    "warnings": [],
+    "spans": [
+     {
+      "start": 0,
+      "end": 23,
+      "class": "heading",
+      "line_id": null
+     },
+     {
+      "start": 25,
+      "end": 78,
+      "class": "direction",
+      "line_id": "ln-001"
+     },
+     {
+      "start": 80,
+      "end": 113,
+      "class": "heading",
+      "line_id": null
+     },
+     {
+      "start": 115,
+      "end": 186,
+      "class": "narration",
+      "line_id": "ln-002"
+     },
+     {
+      "start": 188,
+      "end": 195,
+      "class": "syntax",
+      "line_id": "ln-003"
+     },
+     {
+      "start": 195,
+      "end": 223,
+      "class": "dialogue",
+      "line_id": "ln-003"
+     },
+     {
+      "start": 224,
+      "end": 245,
+      "class": "syntax",
+      "line_id": "ln-004"
+     },
+     {
+      "start": 245,
+      "end": 288,
+      "class": "dialogue",
+      "line_id": "ln-004"
+     },
+     {
+      "start": 289,
+      "end": 296,
+      "class": "syntax",
+      "line_id": "ln-005"
+     },
+     {
+      "start": 296,
+      "end": 305,
+      "class": "direction",
+      "line_id": "ln-005"
+     },
+     {
+      "start": 306,
+      "end": 336,
+      "class": "dialogue",
+      "line_id": "ln-005"
+     },
+     {
+      "start": 338,
+      "end": 350,
+      "class": "pause",
+      "line_id": null
+     },
+     {
+      "start": 352,
+      "end": 387,
+      "class": "direction",
+      "line_id": "ln-006"
+     },
+     {
+      "start": 389,
+      "end": 392,
+      "class": "syntax",
+      "line_id": "ln-007"
+     },
+     {
+      "start": 393,
+      "end": 405,
+      "class": "direction",
+      "line_id": "ln-007"
+     },
+     {
+      "start": 406,
+      "end": 429,
+      "class": "dialogue",
+      "line_id": "ln-007"
+     },
+     {
+      "start": 430,
+      "end": 440,
+      "class": "dialogue",
+      "line_id": "ln-007"
+     },
+     {
+      "start": 442,
+      "end": 448,
+      "class": "pause",
+      "line_id": null
+     },
+     {
+      "start": 450,
+      "end": 457,
+      "class": "syntax",
+      "line_id": "ln-008"
+     },
+     {
+      "start": 457,
+      "end": 476,
+      "class": "dialogue",
+      "line_id": "ln-008"
+     },
+     {
+      "start": 478,
+      "end": 485,
+      "class": "heading",
+      "line_id": null
+     },
+     {
+      "start": 487,
+      "end": 534,
+      "class": "direction",
+      "line_id": "ln-009"
+     },
+     {
+      "start": 536,
+      "end": 560,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 561,
+      "end": 599,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 601,
+      "end": 606,
+      "class": "syntax",
+      "line_id": "ln-011"
+     },
+     {
+      "start": 606,
+      "end": 618,
+      "class": "dialogue",
+      "line_id": "ln-011"
+     },
+     {
+      "start": 619,
+      "end": 624,
+      "class": "syntax",
+      "line_id": "ln-012"
+     },
+     {
+      "start": 624,
+      "end": 631,
+      "class": "dialogue",
+      "line_id": "ln-012"
+     }
+    ]
+   },
+   "coverage": {
+    "ok": true,
+    "unclassified": [],
+    "mismatches": [],
+    "problems": [],
+    "counts": {
+     "dialogue": 145,
+     "narration": 114,
+     "heading": 55,
+     "direction": 134,
+     "pause": 17,
+     "syntax": 46
+    },
+    "classified_chars": 511,
+    "total_chars": 511
+   },
+   "project": {
+    "title": "The Lighthouse Keeper",
+    "source_sha256": "e7af868f9b68ef375faf8ffdd968bfba0569060fe0bccc1a62cb07be18ce64d2",
+    "source_coverage": {
+     "ok": true,
+     "counts": {
+      "dialogue": 145,
+      "narration": 114,
+      "heading": 55,
+      "direction": 134,
+      "pause": 17,
+      "syntax": 46
+     },
+     "unclassified": 0,
+     "mismatches": 0,
+     "classified_chars": 511,
+     "total_chars": 511,
+     "method": "deterministic-spans"
+    },
+    "actors": [
+     "NARRATOR",
+     "EDITH",
+     "TOM"
+    ]
+   }
+  },
+  {
+   "name": "studio-drama-custom-narrator",
+   "script": "# The Lighthouse Keeper\n\n[AMBIENCE: wind over a rocky shore, loop, fade in 2s]\n\nINT. LIGHTHOUSE STAIRWELL - NIGHT\n\nThe stairs wind upward into the dark. Somewhere above, a shutter bangs.\n\nEDITH: Who left the lamp room open?\nTOM (out of breath): Not me. I've been at the boats all evening.\nEDITH: [quietly] Then someone else is up there.\n\n[pause 1.5s]\n\n[SFX: a heavy door slams, for 1.5s]\n\nTOM\n(whispering)\nWe should go back down.\nRight now.\n\n(beat)\n\nEDITH: No. We finish this.\n\nSCENE 2\n\n[MUSIC: low cello drone, fade out 3s, optional]\n\nNarration can run across\nseveral lines and stays one paragraph.\n\nTom: Edith, wait.\nTom: Please.\n",
+   "opts": {
+    "narrator": "Storyteller"
+   },
+   "parsed": {
+    "source_length": 632,
+    "title": "The Lighthouse Keeper",
+    "scenes": [
+     {
+      "id": "sc-01",
+      "title": "The Lighthouse Keeper",
+      "lines": [
+       {
+        "id": "ln-001",
+        "speaker": "Storyteller",
+        "speaker_key": "STORYTELLER",
+        "kind": "direction",
+        "text": "AMBIENCE: wind over a rocky shore, loop, fade in 2s",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": false,
+        "src": {
+         "start": 25,
+         "end": 78
+        },
+        "takes": [],
+        "active_take_id": null,
+        "cue": {
+         "role": "ambience",
+         "description": "wind over a rocky shore",
+         "params": {
+          "loop": true,
+          "fade_in_s": 2
+         }
+        }
+       }
+      ]
+     },
+     {
+      "id": "sc-02",
+      "title": "INT. LIGHTHOUSE STAIRWELL - NIGHT",
+      "lines": [
+       {
+        "id": "ln-002",
+        "speaker": "Storyteller",
+        "speaker_key": "STORYTELLER",
+        "kind": "narration",
+        "text": "The stairs wind upward into the dark. Somewhere above, a shutter bangs.",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 115,
+         "end": 186
+        },
+        "takes": [],
+        "active_take_id": null
+       },
+       {
+        "id": "ln-003",
+        "speaker": "EDITH",
+        "speaker_key": "EDITH",
+        "kind": "dialogue",
+        "text": "Who left the lamp room open?",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 195,
+         "end": 223
+        },
+        "takes": [],
+        "active_take_id": null
+       },
+       {
+        "id": "ln-004",
+        "speaker": "TOM",
+        "speaker_key": "TOM",
+        "kind": "dialogue",
+        "text": "Not me. I've been at the boats all evening.",
+        "direction": "out of breath",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 245,
+         "end": 288
+        },
+        "takes": [],
+        "active_take_id": null
+       },
+       {
+        "id": "ln-005",
+        "speaker": "EDITH",
+        "speaker_key": "EDITH",
+        "kind": "dialogue",
+        "text": "Then someone else is up there.",
+        "direction": "quietly",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 296,
+         "end": 336
+        },
+        "takes": [],
+        "active_take_id": null
+       },
+       {
+        "id": "ln-006",
+        "speaker": "Storyteller",
+        "speaker_key": "STORYTELLER",
+        "kind": "direction",
+        "text": "SFX: a heavy door slams, for 1.5s",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": false,
+        "src": {
+         "start": 352,
+         "end": 387
+        },
+        "takes": [],
+        "active_take_id": null,
+        "cue": {
+         "role": "sfx",
+         "description": "a heavy door slams",
+         "params": {
+          "duration_s": 1.5
+         }
+        }
+       },
+       {
+        "id": "ln-007",
+        "speaker": "TOM",
+        "speaker_key": "TOM",
+        "kind": "dialogue",
+        "text": "We should go back down. Right now.",
+        "direction": "whispering",
+        "pause_before_s": 1.5,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 406,
+         "end": 440
+        },
+        "takes": [],
+        "active_take_id": null
+       },
+       {
+        "id": "ln-008",
+        "speaker": "EDITH",
+        "speaker_key": "EDITH",
+        "kind": "dialogue",
+        "text": "No. We finish this.",
+        "direction": "",
+        "pause_before_s": 0.6,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 457,
+         "end": 476
+        },
+        "takes": [],
+        "active_take_id": null
+       }
+      ]
+     },
+     {
+      "id": "sc-03",
+      "title": "SCENE 2",
+      "lines": [
+       {
+        "id": "ln-009",
+        "speaker": "Storyteller",
+        "speaker_key": "STORYTELLER",
+        "kind": "direction",
+        "text": "MUSIC: low cello drone, fade out 3s, optional",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": false,
+        "src": {
+         "start": 487,
+         "end": 534
+        },
+        "takes": [],
+        "active_take_id": null,
+        "cue": {
+         "role": "music",
+         "description": "low cello drone",
+         "params": {
+          "fade_out_s": 3,
+          "optional": true
+         }
+        }
+       },
+       {
+        "id": "ln-010",
+        "speaker": "Storyteller",
+        "speaker_key": "STORYTELLER",
+        "kind": "narration",
+        "text": "Narration can run across several lines and stays one paragraph.",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 536,
+         "end": 599
+        },
+        "takes": [],
+        "active_take_id": null
+       },
+       {
+        "id": "ln-011",
+        "speaker": "Tom",
+        "speaker_key": "TOM",
+        "kind": "dialogue",
+        "text": "Edith, wait.",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 606,
+         "end": 618
+        },
+        "takes": [],
+        "active_take_id": null
+       },
+       {
+        "id": "ln-012",
+        "speaker": "Tom",
+        "speaker_key": "TOM",
+        "kind": "dialogue",
+        "text": "Please.",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 624,
+         "end": 631
+        },
+        "takes": [],
+        "active_take_id": null
+       }
+      ]
+     }
+    ],
+    "speakers": [
+     {
+      "key": "STORYTELLER",
+      "name": "Storyteller",
+      "lines": 2,
+      "kinds": {
+       "dialogue": 0,
+       "narration": 2
+      }
+     },
+     {
+      "key": "EDITH",
+      "name": "EDITH",
+      "lines": 3,
+      "kinds": {
+       "dialogue": 3,
+       "narration": 0
+      }
+     },
+     {
+      "key": "TOM",
+      "name": "TOM",
+      "lines": 4,
+      "kinds": {
+       "dialogue": 4,
+       "narration": 0
+      }
+     }
+    ],
+    "warnings": [],
+    "spans": [
+     {
+      "start": 0,
+      "end": 23,
+      "class": "heading",
+      "line_id": null
+     },
+     {
+      "start": 25,
+      "end": 78,
+      "class": "direction",
+      "line_id": "ln-001"
+     },
+     {
+      "start": 80,
+      "end": 113,
+      "class": "heading",
+      "line_id": null
+     },
+     {
+      "start": 115,
+      "end": 186,
+      "class": "narration",
+      "line_id": "ln-002"
+     },
+     {
+      "start": 188,
+      "end": 195,
+      "class": "syntax",
+      "line_id": "ln-003"
+     },
+     {
+      "start": 195,
+      "end": 223,
+      "class": "dialogue",
+      "line_id": "ln-003"
+     },
+     {
+      "start": 224,
+      "end": 245,
+      "class": "syntax",
+      "line_id": "ln-004"
+     },
+     {
+      "start": 245,
+      "end": 288,
+      "class": "dialogue",
+      "line_id": "ln-004"
+     },
+     {
+      "start": 289,
+      "end": 296,
+      "class": "syntax",
+      "line_id": "ln-005"
+     },
+     {
+      "start": 296,
+      "end": 305,
+      "class": "direction",
+      "line_id": "ln-005"
+     },
+     {
+      "start": 306,
+      "end": 336,
+      "class": "dialogue",
+      "line_id": "ln-005"
+     },
+     {
+      "start": 338,
+      "end": 350,
+      "class": "pause",
+      "line_id": null
+     },
+     {
+      "start": 352,
+      "end": 387,
+      "class": "direction",
+      "line_id": "ln-006"
+     },
+     {
+      "start": 389,
+      "end": 392,
+      "class": "syntax",
+      "line_id": "ln-007"
+     },
+     {
+      "start": 393,
+      "end": 405,
+      "class": "direction",
+      "line_id": "ln-007"
+     },
+     {
+      "start": 406,
+      "end": 429,
+      "class": "dialogue",
+      "line_id": "ln-007"
+     },
+     {
+      "start": 430,
+      "end": 440,
+      "class": "dialogue",
+      "line_id": "ln-007"
+     },
+     {
+      "start": 442,
+      "end": 448,
+      "class": "pause",
+      "line_id": null
+     },
+     {
+      "start": 450,
+      "end": 457,
+      "class": "syntax",
+      "line_id": "ln-008"
+     },
+     {
+      "start": 457,
+      "end": 476,
+      "class": "dialogue",
+      "line_id": "ln-008"
+     },
+     {
+      "start": 478,
+      "end": 485,
+      "class": "heading",
+      "line_id": null
+     },
+     {
+      "start": 487,
+      "end": 534,
+      "class": "direction",
+      "line_id": "ln-009"
+     },
+     {
+      "start": 536,
+      "end": 560,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 561,
+      "end": 599,
+      "class": "narration",
+      "line_id": "ln-010"
+     },
+     {
+      "start": 601,
+      "end": 606,
+      "class": "syntax",
+      "line_id": "ln-011"
+     },
+     {
+      "start": 606,
+      "end": 618,
+      "class": "dialogue",
+      "line_id": "ln-011"
+     },
+     {
+      "start": 619,
+      "end": 624,
+      "class": "syntax",
+      "line_id": "ln-012"
+     },
+     {
+      "start": 624,
+      "end": 631,
+      "class": "dialogue",
+      "line_id": "ln-012"
+     }
+    ]
+   },
+   "coverage": {
+    "ok": true,
+    "unclassified": [],
+    "mismatches": [],
+    "problems": [],
+    "counts": {
+     "dialogue": 145,
+     "narration": 114,
+     "heading": 55,
+     "direction": 134,
+     "pause": 17,
+     "syntax": 46
+    },
+    "classified_chars": 511,
+    "total_chars": 511
+   },
+   "project": {
+    "title": "The Lighthouse Keeper",
+    "source_sha256": "e7af868f9b68ef375faf8ffdd968bfba0569060fe0bccc1a62cb07be18ce64d2",
+    "source_coverage": {
+     "ok": true,
+     "counts": {
+      "dialogue": 145,
+      "narration": 114,
+      "heading": 55,
+      "direction": 134,
+      "pause": 17,
+      "syntax": 46
+     },
+     "unclassified": 0,
+     "mismatches": 0,
+     "classified_chars": 511,
+     "total_chars": 511,
+     "method": "deterministic-spans"
+    },
+    "actors": [
+     "STORYTELLER",
+     "EDITH",
+     "TOM"
+    ]
+   }
+  },
+  {
+   "name": "crlf",
+   "script": "MAYA: First line.\r\n[pause 2s]\r\nJON: Second line.\r\n\r\nINT. HALL - DAY\r\nThe hall is empty.\r\n",
+   "opts": {},
+   "parsed": {
+    "source_length": 83,
+    "title": "INT. HALL - DAY",
+    "scenes": [
+     {
+      "id": "sc-01",
+      "title": "Scene 1",
+      "lines": [
+       {
+        "id": "ln-001",
+        "speaker": "MAYA",
+        "speaker_key": "MAYA",
+        "kind": "dialogue",
+        "text": "First line.",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 6,
+         "end": 17
+        },
+        "takes": [],
+        "active_take_id": null
+       },
+       {
+        "id": "ln-002",
+        "speaker": "JON",
+        "speaker_key": "JON",
+        "kind": "dialogue",
+        "text": "Second line.",
+        "direction": "",
+        "pause_before_s": 2,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 34,
+         "end": 46
+        },
+        "takes": [],
+        "active_take_id": null
+       }
+      ]
+     },
+     {
+      "id": "sc-02",
+      "title": "INT. HALL - DAY",
+      "lines": [
+       {
+        "id": "ln-003",
+        "speaker": "NARRATOR",
+        "speaker_key": "NARRATOR",
+        "kind": "narration",
+        "text": "The hall is empty.",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 64,
+         "end": 82
+        },
+        "takes": [],
+        "active_take_id": null
+       }
+      ]
+     }
+    ],
+    "speakers": [
+     {
+      "key": "MAYA",
+      "name": "MAYA",
+      "lines": 1,
+      "kinds": {
+       "dialogue": 1,
+       "narration": 0
+      }
+     },
+     {
+      "key": "JON",
+      "name": "JON",
+      "lines": 1,
+      "kinds": {
+       "dialogue": 1,
+       "narration": 0
+      }
+     },
+     {
+      "key": "NARRATOR",
+      "name": "NARRATOR",
+      "lines": 1,
+      "kinds": {
+       "dialogue": 0,
+       "narration": 1
+      }
+     }
+    ],
+    "warnings": [],
+    "spans": [
+     {
+      "start": 0,
+      "end": 6,
+      "class": "syntax",
+      "line_id": "ln-001"
+     },
+     {
+      "start": 6,
+      "end": 17,
+      "class": "dialogue",
+      "line_id": "ln-001"
+     },
+     {
+      "start": 18,
+      "end": 28,
+      "class": "pause",
+      "line_id": null
+     },
+     {
+      "start": 29,
+      "end": 34,
+      "class": "syntax",
+      "line_id": "ln-002"
+     },
+     {
+      "start": 34,
+      "end": 46,
+      "class": "dialogue",
+      "line_id": "ln-002"
+     },
+     {
+      "start": 48,
+      "end": 63,
+      "class": "heading",
+      "line_id": null
+     },
+     {
+      "start": 64,
+      "end": 82,
+      "class": "narration",
+      "line_id": "ln-003"
+     }
+    ]
+   },
+   "coverage": {
+    "ok": true,
+    "unclassified": [],
+    "mismatches": [],
+    "problems": [],
+    "counts": {
+     "dialogue": 21,
+     "narration": 15,
+     "heading": 12,
+     "direction": 0,
+     "pause": 9,
+     "syntax": 9
+    },
+    "classified_chars": 66,
+    "total_chars": 66
+   },
+   "project": {
+    "title": "INT. HALL - DAY",
+    "source_sha256": "18352bc4fa18b51f75312454062ae5dc6e3a21b12bddbab1b3411d2de8d1fdd3",
+    "source_coverage": {
+     "ok": true,
+     "counts": {
+      "dialogue": 21,
+      "narration": 15,
+      "heading": 12,
+      "direction": 0,
+      "pause": 9,
+      "syntax": 9
+     },
+     "unclassified": 0,
+     "mismatches": 0,
+     "classified_chars": 66,
+     "total_chars": 66,
+     "method": "deterministic-spans"
+    },
+    "actors": [
+     "MAYA",
+     "JON",
+     "NARRATOR"
+    ]
+   }
+  },
+  {
+   "name": "lone-cr",
+   "script": "MAYA: one\r[beat]\rJON: two\r",
+   "opts": {},
+   "parsed": {
+    "source_length": 26,
+    "title": null,
+    "scenes": [
+     {
+      "id": "sc-01",
+      "title": "Scene 1",
+      "lines": [
+       {
+        "id": "ln-001",
+        "speaker": "MAYA",
+        "speaker_key": "MAYA",
+        "kind": "dialogue",
+        "text": "one",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 6,
+         "end": 9
+        },
+        "takes": [],
+        "active_take_id": null
+       },
+       {
+        "id": "ln-002",
+        "speaker": "JON",
+        "speaker_key": "JON",
+        "kind": "dialogue",
+        "text": "two",
+        "direction": "",
+        "pause_before_s": 0.6,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 22,
+         "end": 25
+        },
+        "takes": [],
+        "active_take_id": null
+       }
+      ]
+     }
+    ],
+    "speakers": [
+     {
+      "key": "MAYA",
+      "name": "MAYA",
+      "lines": 1,
+      "kinds": {
+       "dialogue": 1,
+       "narration": 0
+      }
+     },
+     {
+      "key": "JON",
+      "name": "JON",
+      "lines": 1,
+      "kinds": {
+       "dialogue": 1,
+       "narration": 0
+      }
+     }
+    ],
+    "warnings": [],
+    "spans": [
+     {
+      "start": 0,
+      "end": 6,
+      "class": "syntax",
+      "line_id": "ln-001"
+     },
+     {
+      "start": 6,
+      "end": 9,
+      "class": "dialogue",
+      "line_id": "ln-001"
+     },
+     {
+      "start": 10,
+      "end": 16,
+      "class": "pause",
+      "line_id": null
+     },
+     {
+      "start": 17,
+      "end": 22,
+      "class": "syntax",
+      "line_id": "ln-002"
+     },
+     {
+      "start": 22,
+      "end": 25,
+      "class": "dialogue",
+      "line_id": "ln-002"
+     }
+    ]
+   },
+   "coverage": {
+    "ok": true,
+    "unclassified": [],
+    "mismatches": [],
+    "problems": [],
+    "counts": {
+     "dialogue": 6,
+     "narration": 0,
+     "heading": 0,
+     "direction": 0,
+     "pause": 6,
+     "syntax": 9
+    },
+    "classified_chars": 21,
+    "total_chars": 21
+   },
+   "project": {
+    "title": "Untitled drama",
+    "source_sha256": "31dd6c8f751c3fd2fb0615b40a6dc44e0a05d9b86ca825b1ee9b98a7299f4911",
+    "source_coverage": {
+     "ok": true,
+     "counts": {
+      "dialogue": 6,
+      "narration": 0,
+      "heading": 0,
+      "direction": 0,
+      "pause": 6,
+      "syntax": 9
+     },
+     "unclassified": 0,
+     "mismatches": 0,
+     "classified_chars": 21,
+     "total_chars": 21,
+     "method": "deterministic-spans"
+    },
+    "actors": [
+     "MAYA",
+     "JON"
+    ]
+   }
+  },
+  {
+   "name": "divergent",
+   "script": "TITLE: Things DexDiffusion reads differently\n\nMAYA: We can leave after this [pause 2s] if you want.\n[pause 500ms]\n[AMB: rain on glass]\nMaya: lowercase name once, while ALL CAPS speakers exist.\n---\n[SFX: floorboard] [pause 1s]\nRemember: this line is prose, not a speaker.\n",
+   "opts": {},
+   "parsed": {
+    "source_length": 271,
+    "title": null,
+    "scenes": [
+     {
+      "id": "sc-01",
+      "title": "Scene 1",
+      "lines": [
+       {
+        "id": "ln-001",
+        "speaker": "NARRATOR",
+        "speaker_key": "NARRATOR",
+        "kind": "narration",
+        "text": "TITLE: Things DexDiffusion reads differently",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 0,
+         "end": 44
+        },
+        "takes": [],
+        "active_take_id": null
+       },
+       {
+        "id": "ln-002",
+        "speaker": "MAYA",
+        "speaker_key": "MAYA",
+        "kind": "dialogue",
+        "text": "We can leave after this [pause 2s] if you want.",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 52,
+         "end": 99
+        },
+        "takes": [],
+        "active_take_id": null
+       },
+       {
+        "id": "ln-003",
+        "speaker": "NARRATOR",
+        "speaker_key": "NARRATOR",
+        "kind": "direction",
+        "text": "pause 500ms",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": false,
+        "src": {
+         "start": 100,
+         "end": 113
+        },
+        "takes": [],
+        "active_take_id": null
+       },
+       {
+        "id": "ln-004",
+        "speaker": "NARRATOR",
+        "speaker_key": "NARRATOR",
+        "kind": "narration",
+        "text": "[AMB: rain on glass]",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 114,
+         "end": 134
+        },
+        "takes": [],
+        "active_take_id": null
+       },
+       {
+        "id": "ln-005",
+        "speaker": "Maya",
+        "speaker_key": "MAYA",
+        "kind": "dialogue",
+        "text": "lowercase name once, while ALL CAPS speakers exist. --- [SFX: floorboard] [pause 1s] Remember: this line is prose, not a speaker.",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 141,
+         "end": 270
+        },
+        "takes": [],
+        "active_take_id": null
+       }
+      ]
+     }
+    ],
+    "speakers": [
+     {
+      "key": "NARRATOR",
+      "name": "NARRATOR",
+      "lines": 2,
+      "kinds": {
+       "dialogue": 0,
+       "narration": 2
+      }
+     },
+     {
+      "key": "MAYA",
+      "name": "MAYA",
+      "lines": 2,
+      "kinds": {
+       "dialogue": 2,
+       "narration": 0
+      }
+     }
+    ],
+    "warnings": [],
+    "spans": [
+     {
+      "start": 0,
+      "end": 44,
+      "class": "narration",
+      "line_id": "ln-001"
+     },
+     {
+      "start": 46,
+      "end": 52,
+      "class": "syntax",
+      "line_id": "ln-002"
+     },
+     {
+      "start": 52,
+      "end": 99,
+      "class": "dialogue",
+      "line_id": "ln-002"
+     },
+     {
+      "start": 100,
+      "end": 113,
+      "class": "direction",
+      "line_id": "ln-003"
+     },
+     {
+      "start": 114,
+      "end": 134,
+      "class": "narration",
+      "line_id": "ln-004"
+     },
+     {
+      "start": 135,
+      "end": 141,
+      "class": "syntax",
+      "line_id": "ln-005"
+     },
+     {
+      "start": 141,
+      "end": 192,
+      "class": "dialogue",
+      "line_id": "ln-005"
+     },
+     {
+      "start": 193,
+      "end": 196,
+      "class": "dialogue",
+      "line_id": "ln-005"
+     },
+     {
+      "start": 197,
+      "end": 225,
+      "class": "dialogue",
+      "line_id": "ln-005"
+     },
+     {
+      "start": 226,
+      "end": 270,
+      "class": "dialogue",
+      "line_id": "ln-005"
+     }
+    ]
+   },
+   "coverage": {
+    "ok": false,
+    "unclassified": [],
+    "mismatches": [
+     {
+      "line_id": "ln-004",
+      "scene_id": "sc-01",
+      "reason": "text-differs-from-source"
+     }
+    ],
+    "problems": [],
+    "counts": {
+     "dialogue": 147,
+     "narration": 57,
+     "heading": 0,
+     "direction": 12,
+     "pause": 0,
+     "syntax": 10
+    },
+    "classified_chars": 226,
+    "total_chars": 226
+   },
+   "project": {
+    "title": "Untitled drama",
+    "source_sha256": "ab863e84d318efec5eaf9706b23860b374a6d6624362cb62134b01b44334a957",
+    "source_coverage": {
+     "ok": false,
+     "counts": {
+      "dialogue": 147,
+      "narration": 57,
+      "heading": 0,
+      "direction": 12,
+      "pause": 0,
+      "syntax": 10
+     },
+     "unclassified": 0,
+     "mismatches": 1,
+     "classified_chars": 226,
+     "total_chars": 226,
+     "method": "deterministic-spans"
+    },
+    "actors": [
+     "NARRATOR",
+     "MAYA"
+    ]
+   }
+  },
+  {
+   "name": "empty",
+   "script": "",
+   "opts": {},
+   "parsed": {
+    "source_length": 0,
+    "title": null,
+    "scenes": [],
+    "speakers": [],
+    "warnings": [
+     "No lines were found. Use \"NAME: text\" lines, screenplay cues, or plain narration paragraphs."
+    ],
+    "spans": []
+   },
+   "coverage": {
+    "ok": true,
+    "unclassified": [],
+    "mismatches": [],
+    "problems": [],
+    "counts": {
+     "dialogue": 0,
+     "narration": 0,
+     "heading": 0,
+     "direction": 0,
+     "pause": 0,
+     "syntax": 0
+    },
+    "classified_chars": 0,
+    "total_chars": 0
+   },
+   "project": {
+    "title": "Untitled drama",
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "source_coverage": {
+     "ok": true,
+     "counts": {
+      "dialogue": 0,
+      "narration": 0,
+      "heading": 0,
+      "direction": 0,
+      "pause": 0,
+      "syntax": 0
+     },
+     "unclassified": 0,
+     "mismatches": 0,
+     "classified_chars": 0,
+     "total_chars": 0,
+     "method": "deterministic-spans"
+    },
+    "actors": []
+   }
+  },
+  {
+   "name": "whitespace-only",
+   "script": "  \n\t\n",
+   "opts": {},
+   "parsed": {
+    "source_length": 5,
+    "title": null,
+    "scenes": [],
+    "speakers": [],
+    "warnings": [
+     "No lines were found. Use \"NAME: text\" lines, screenplay cues, or plain narration paragraphs."
+    ],
+    "spans": []
+   },
+   "coverage": {
+    "ok": true,
+    "unclassified": [],
+    "mismatches": [],
+    "problems": [],
+    "counts": {
+     "dialogue": 0,
+     "narration": 0,
+     "heading": 0,
+     "direction": 0,
+     "pause": 0,
+     "syntax": 0
+    },
+    "classified_chars": 0,
+    "total_chars": 0
+   },
+   "project": {
+    "title": "Untitled drama",
+    "source_sha256": "3ee42a8fa03e7fcdcb07efcd9194f20bfb64d15733407d6f90fccffd92df3666",
+    "source_coverage": {
+     "ok": true,
+     "counts": {
+      "dialogue": 0,
+      "narration": 0,
+      "heading": 0,
+      "direction": 0,
+      "pause": 0,
+      "syntax": 0
+     },
+     "unclassified": 0,
+     "mismatches": 0,
+     "classified_chars": 0,
+     "total_chars": 0,
+     "method": "deterministic-spans"
+    },
+    "actors": []
+   }
+  },
+  {
+   "name": "narration-only",
+   "script": "The sea was calm.\nNobody spoke.\n\nMorning came.",
+   "opts": {},
+   "parsed": {
+    "source_length": 46,
+    "title": null,
+    "scenes": [
+     {
+      "id": "sc-01",
+      "title": "Scene 1",
+      "lines": [
+       {
+        "id": "ln-001",
+        "speaker": "NARRATOR",
+        "speaker_key": "NARRATOR",
+        "kind": "narration",
+        "text": "The sea was calm. Nobody spoke.",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 0,
+         "end": 31
+        },
+        "takes": [],
+        "active_take_id": null
+       },
+       {
+        "id": "ln-002",
+        "speaker": "NARRATOR",
+        "speaker_key": "NARRATOR",
+        "kind": "narration",
+        "text": "Morning came.",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 33,
+         "end": 46
+        },
+        "takes": [],
+        "active_take_id": null
+       }
+      ]
+     }
+    ],
+    "speakers": [
+     {
+      "key": "NARRATOR",
+      "name": "NARRATOR",
+      "lines": 2,
+      "kinds": {
+       "dialogue": 0,
+       "narration": 2
+      }
+     }
+    ],
+    "warnings": [
+     "No dialogue lines were detected (only narration). Use \"NAME: text\" if you expected speakers."
+    ],
+    "spans": [
+     {
+      "start": 0,
+      "end": 17,
+      "class": "narration",
+      "line_id": "ln-001"
+     },
+     {
+      "start": 18,
+      "end": 31,
+      "class": "narration",
+      "line_id": "ln-001"
+     },
+     {
+      "start": 33,
+      "end": 46,
+      "class": "narration",
+      "line_id": "ln-002"
+     }
+    ]
+   },
+   "coverage": {
+    "ok": true,
+    "unclassified": [],
+    "mismatches": [],
+    "problems": [],
+    "counts": {
+     "dialogue": 0,
+     "narration": 38,
+     "heading": 0,
+     "direction": 0,
+     "pause": 0,
+     "syntax": 0
+    },
+    "classified_chars": 38,
+    "total_chars": 38
+   },
+   "project": {
+    "title": "Untitled drama",
+    "source_sha256": "6f2246f1469bf2d0372faf803619b0206b58697d42577486d98e7c85b0d66213",
+    "source_coverage": {
+     "ok": true,
+     "counts": {
+      "dialogue": 0,
+      "narration": 38,
+      "heading": 0,
+      "direction": 0,
+      "pause": 0,
+      "syntax": 0
+     },
+     "unclassified": 0,
+     "mismatches": 0,
+     "classified_chars": 38,
+     "total_chars": 38,
+     "method": "deterministic-spans"
+    },
+    "actors": [
+     "NARRATOR"
+    ]
+   }
+  },
+  {
+   "name": "unicode",
+   "script": "ナオキ: こんにちは。\nJosé: ¿Dónde está?\nZOË: Ça va. 🎧\n[SFX: café noise — duck]",
+   "opts": {},
+   "parsed": {
+    "source_length": 70,
+    "title": null,
+    "scenes": [
+     {
+      "id": "sc-01",
+      "title": "Scene 1",
+      "lines": [
+       {
+        "id": "ln-001",
+        "speaker": "NARRATOR",
+        "speaker_key": "NARRATOR",
+        "kind": "narration",
+        "text": "ナオキ: こんにちは。 José: ¿Dónde está? ZOË: Ça va. 🎧",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 0,
+         "end": 45
+        },
+        "takes": [],
+        "active_take_id": null
+       },
+       {
+        "id": "ln-002",
+        "speaker": "NARRATOR",
+        "speaker_key": "NARRATOR",
+        "kind": "direction",
+        "text": "SFX: café noise — duck",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": false,
+        "src": {
+         "start": 46,
+         "end": 70
+        },
+        "takes": [],
+        "active_take_id": null,
+        "cue": {
+         "role": "sfx",
+         "description": "café noise — duck",
+         "params": {}
+        }
+       }
+      ]
+     }
+    ],
+    "speakers": [
+     {
+      "key": "NARRATOR",
+      "name": "NARRATOR",
+      "lines": 1,
+      "kinds": {
+       "dialogue": 0,
+       "narration": 1
+      }
+     }
+    ],
+    "warnings": [
+     "No dialogue lines were detected (only narration). Use \"NAME: text\" if you expected speakers."
+    ],
+    "spans": [
+     {
+      "start": 0,
+      "end": 11,
+      "class": "narration",
+      "line_id": "ln-001"
+     },
+     {
+      "start": 12,
+      "end": 30,
+      "class": "narration",
+      "line_id": "ln-001"
+     },
+     {
+      "start": 31,
+      "end": 45,
+      "class": "narration",
+      "line_id": "ln-001"
+     },
+     {
+      "start": 46,
+      "end": 70,
+      "class": "direction",
+      "line_id": "ln-002"
+     }
+    ]
+   },
+   "coverage": {
+    "ok": true,
+    "unclassified": [],
+    "mismatches": [],
+    "problems": [],
+    "counts": {
+     "dialogue": 0,
+     "narration": 37,
+     "heading": 0,
+     "direction": 20,
+     "pause": 0,
+     "syntax": 0
+    },
+    "classified_chars": 57,
+    "total_chars": 57
+   },
+   "project": {
+    "title": "Untitled drama",
+    "source_sha256": "a58460334940fbe54e4fdffa86997637b271fb9d82b50622e9ac37d77596362c",
+    "source_coverage": {
+     "ok": true,
+     "counts": {
+      "dialogue": 0,
+      "narration": 37,
+      "heading": 0,
+      "direction": 20,
+      "pause": 0,
+      "syntax": 0
+     },
+     "unclassified": 0,
+     "mismatches": 0,
+     "classified_chars": 57,
+     "total_chars": 57,
+     "method": "deterministic-spans"
+    },
+    "actors": [
+     "NARRATOR"
+    ]
+   }
+  },
+  {
+   "name": "title-case-cast",
+   "script": "Anna: Hello.\nBen: Hi.\nAnna: Ready?\nBen: Always.",
+   "opts": {},
+   "parsed": {
+    "source_length": 47,
+    "title": null,
+    "scenes": [
+     {
+      "id": "sc-01",
+      "title": "Scene 1",
+      "lines": [
+       {
+        "id": "ln-001",
+        "speaker": "Anna",
+        "speaker_key": "ANNA",
+        "kind": "dialogue",
+        "text": "Hello.",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 6,
+         "end": 12
+        },
+        "takes": [],
+        "active_take_id": null
+       },
+       {
+        "id": "ln-002",
+        "speaker": "Ben",
+        "speaker_key": "BEN",
+        "kind": "dialogue",
+        "text": "Hi.",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 18,
+         "end": 21
+        },
+        "takes": [],
+        "active_take_id": null
+       },
+       {
+        "id": "ln-003",
+        "speaker": "Anna",
+        "speaker_key": "ANNA",
+        "kind": "dialogue",
+        "text": "Ready?",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 28,
+         "end": 34
+        },
+        "takes": [],
+        "active_take_id": null
+       },
+       {
+        "id": "ln-004",
+        "speaker": "Ben",
+        "speaker_key": "BEN",
+        "kind": "dialogue",
+        "text": "Always.",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 40,
+         "end": 47
+        },
+        "takes": [],
+        "active_take_id": null
+       }
+      ]
+     }
+    ],
+    "speakers": [
+     {
+      "key": "ANNA",
+      "name": "Anna",
+      "lines": 2,
+      "kinds": {
+       "dialogue": 2,
+       "narration": 0
+      }
+     },
+     {
+      "key": "BEN",
+      "name": "Ben",
+      "lines": 2,
+      "kinds": {
+       "dialogue": 2,
+       "narration": 0
+      }
+     }
+    ],
+    "warnings": [],
+    "spans": [
+     {
+      "start": 0,
+      "end": 6,
+      "class": "syntax",
+      "line_id": "ln-001"
+     },
+     {
+      "start": 6,
+      "end": 12,
+      "class": "dialogue",
+      "line_id": "ln-001"
+     },
+     {
+      "start": 13,
+      "end": 18,
+      "class": "syntax",
+      "line_id": "ln-002"
+     },
+     {
+      "start": 18,
+      "end": 21,
+      "class": "dialogue",
+      "line_id": "ln-002"
+     },
+     {
+      "start": 22,
+      "end": 28,
+      "class": "syntax",
+      "line_id": "ln-003"
+     },
+     {
+      "start": 28,
+      "end": 34,
+      "class": "dialogue",
+      "line_id": "ln-003"
+     },
+     {
+      "start": 35,
+      "end": 40,
+      "class": "syntax",
+      "line_id": "ln-004"
+     },
+     {
+      "start": 40,
+      "end": 47,
+      "class": "dialogue",
+      "line_id": "ln-004"
+     }
+    ]
+   },
+   "coverage": {
+    "ok": true,
+    "unclassified": [],
+    "mismatches": [],
+    "problems": [],
+    "counts": {
+     "dialogue": 22,
+     "narration": 0,
+     "heading": 0,
+     "direction": 0,
+     "pause": 0,
+     "syntax": 18
+    },
+    "classified_chars": 40,
+    "total_chars": 40
+   },
+   "project": {
+    "title": "Untitled drama",
+    "source_sha256": "af12c18bf840c5b54e4d792058d216255c0a21b666aa57c5487db6f5aad82951",
+    "source_coverage": {
+     "ok": true,
+     "counts": {
+      "dialogue": 22,
+      "narration": 0,
+      "heading": 0,
+      "direction": 0,
+      "pause": 0,
+      "syntax": 18
+     },
+     "unclassified": 0,
+     "mismatches": 0,
+     "classified_chars": 40,
+     "total_chars": 40,
+     "method": "deterministic-spans"
+    },
+    "actors": [
+     "ANNA",
+     "BEN"
+    ]
+   }
+  },
+  {
+   "name": "stop-names",
+   "script": "NOTE: not a speaker\nCAST: nobody\nSCENE 3\nAUTHOR: me",
+   "opts": {},
+   "parsed": {
+    "source_length": 51,
+    "title": "SCENE 3",
+    "scenes": [
+     {
+      "id": "sc-01",
+      "title": "Scene 1",
+      "lines": [
+       {
+        "id": "ln-001",
+        "speaker": "NARRATOR",
+        "speaker_key": "NARRATOR",
+        "kind": "narration",
+        "text": "NOTE: not a speaker CAST: nobody",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 0,
+         "end": 32
+        },
+        "takes": [],
+        "active_take_id": null
+       }
+      ]
+     },
+     {
+      "id": "sc-02",
+      "title": "SCENE 3",
+      "lines": [
+       {
+        "id": "ln-002",
+        "speaker": "NARRATOR",
+        "speaker_key": "NARRATOR",
+        "kind": "narration",
+        "text": "AUTHOR: me",
+        "direction": "",
+        "pause_before_s": null,
+        "pause_after_s": null,
+        "render": true,
+        "src": {
+         "start": 41,
+         "end": 51
+        },
+        "takes": [],
+        "active_take_id": null
+       }
+      ]
+     }
+    ],
+    "speakers": [
+     {
+      "key": "NARRATOR",
+      "name": "NARRATOR",
+      "lines": 2,
+      "kinds": {
+       "dialogue": 0,
+       "narration": 2
+      }
+     }
+    ],
+    "warnings": [
+     "No dialogue lines were detected (only narration). Use \"NAME: text\" if you expected speakers."
+    ],
+    "spans": [
+     {
+      "start": 0,
+      "end": 19,
+      "class": "narration",
+      "line_id": "ln-001"
+     },
+     {
+      "start": 20,
+      "end": 32,
+      "class": "narration",
+      "line_id": "ln-001"
+     },
+     {
+      "start": 33,
+      "end": 40,
+      "class": "heading",
+      "line_id": null
+     },
+     {
+      "start": 41,
+      "end": 51,
+      "class": "narration",
+      "line_id": "ln-002"
+     }
+    ]
+   },
+   "coverage": {
+    "ok": true,
+    "unclassified": [],
+    "mismatches": [],
+    "problems": [],
+    "counts": {
+     "dialogue": 0,
+     "narration": 36,
+     "heading": 6,
+     "direction": 0,
+     "pause": 0,
+     "syntax": 0
+    },
+    "classified_chars": 42,
+    "total_chars": 42
+   },
+   "project": {
+    "title": "SCENE 3",
+    "source_sha256": "b0bfd538c61d4fc79000d76ecb8ed34a510f7044ac2f0c3e7acb96914ef2b564",
+    "source_coverage": {
+     "ok": true,
+     "counts": {
+      "dialogue": 0,
+      "narration": 36,
+      "heading": 6,
+      "direction": 0,
+      "pause": 0,
+      "syntax": 0
+     },
+     "unclassified": 0,
+     "mismatches": 0,
+     "classified_chars": 42,
+     "total_chars": 42,
+     "method": "deterministic-spans"
+    },
+    "actors": [
+     "NARRATOR"
+    ]
+   }
+  }
+ ]
+}

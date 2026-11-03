@@ -1,11 +1,20 @@
-import { i as __toESM, n as __exportAll } from "../_runtime.mjs";
-import { G as require_jsx_runtime, K as require_react, _ as createFileRoute, d as Scripts, f as HeadContent, g as lazyRouteComponent, h as Outlet, m as createRouter, v as createRootRoute, y as useRouter } from "../_libs/@tanstack/react-router+[...].mjs";
-import { t as TriangleAlert } from "../_libs/lucide-react.mjs";
+import { i as __toESM } from "../_runtime.mjs";
+import { K as require_react, _ as createFileRoute, b as require_jsx_runtime, d as Scripts, f as HeadContent, g as lazyRouteComponent, h as Outlet, m as createRouter, v as createRootRoute, y as useRouter } from "../_libs/@tanstack/react-router+[...].mjs";
+import { n as TriangleAlert } from "../_libs/lucide-react.mjs";
 import { a as union, i as string, n as number, r as object, t as literal } from "../_libs/zod.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-CP-aQ7ol.js
-var router_CP_aQ7ol_exports = /* @__PURE__ */ __exportAll({ getRouter: () => getRouter });
+//#region node_modules/.nitro/vite/services/ssr/assets/router-DFk4QGxj.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
+var __defProp = Object.defineProperty;
+var __exportAll = (all, no_symbols) => {
+	let target = {};
+	for (var name in all) __defProp(target, name, {
+		get: all[name],
+		enumerable: true
+	});
+	if (!no_symbols) __defProp(target, Symbol.toStringTag, { value: "Module" });
+	return target;
+};
 var FALLBACK_MESSAGE = "An unexpected error occurred. Try reloading the page.";
 function errorMessage(error) {
 	if (error instanceof Error && error.message) return error.message;
@@ -331,7 +340,7 @@ function PreviewHostBridge() {
 	}, [router]);
 	return null;
 }
-var styles_default = "/assets/styles-Dujr5zSX.css";
+var styles_default = "/assets/styles-CdZQI2Ac.css";
 var APP_NAME = "DexParse";
 var Route$1 = createRootRoute({
 	head: () => ({
@@ -339,7 +348,7 @@ var Route$1 = createRootRoute({
 			{ charSet: "utf-8" },
 			{
 				name: "viewport",
-				content: "width=device-width, initial-scale=1"
+				content: "width=device-width, initial-scale=1, viewport-fit=cover"
 			},
 			{ title: APP_NAME },
 			{
@@ -349,6 +358,26 @@ var Route$1 = createRootRoute({
 			{
 				name: "theme-color",
 				content: "#0c0e11"
+			},
+			{
+				name: "color-scheme",
+				content: "dark"
+			},
+			{
+				name: "application-name",
+				content: APP_NAME
+			},
+			{
+				name: "apple-mobile-web-app-title",
+				content: APP_NAME
+			},
+			{
+				name: "apple-mobile-web-app-status-bar-style",
+				content: "black-translucent"
+			},
+			{
+				name: "mobile-web-app-capable",
+				content: "yes"
 			}
 		],
 		links: [
@@ -358,16 +387,23 @@ var Route$1 = createRootRoute({
 				href: "/favicon.svg"
 			},
 			{
+				rel: "icon",
+				type: "image/png",
+				sizes: "192x192",
+				href: "/icons/icon-192.png"
+			},
+			{
 				rel: "stylesheet",
 				href: styles_default
 			},
 			{
 				rel: "manifest",
-				href: "/__grok/manifest.webmanifest"
+				href: "/manifest.webmanifest"
 			},
 			{
 				rel: "apple-touch-icon",
-				href: "/__grok/icon-180.png"
+				sizes: "180x180",
+				href: "/icons/apple-touch-icon.png"
 			}
 		]
 	}),
@@ -381,13 +417,14 @@ var Route$1 = createRootRoute({
 		] })]
 	})
 });
-var $$splitComponentImporter = () => import("./routes-Ci3kuLr5.mjs").then((n) => n.t);
+var $$splitComponentImporter = () => import("./routes-DVIdVZPP.mjs").then((n) => n.t);
 var rootRouteChildren = { IndexRoute: createFileRoute("/")({ component: lazyRouteComponent($$splitComponentImporter, "component") }).update({
 	id: "/",
 	path: "/",
 	getParentRoute: () => Route$1
 }) };
 var routeTree = Route$1._addFileChildren(rootRouteChildren)._addFileTypes();
+var router_exports = /* @__PURE__ */ __exportAll({ getRouter: () => getRouter });
 function getRouter() {
 	return createRouter({
 		routeTree,
@@ -396,4 +433,4 @@ function getRouter() {
 	});
 }
 //#endregion
-export { getRouter, router_CP_aQ7ol_exports as t };
+export { previewPathPrefix as n, __exportAll as r, router_exports as t };
