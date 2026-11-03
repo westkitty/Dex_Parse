@@ -1,0 +1,6 @@
+MAYA: First line.
+[pause 2s]
+JON: Second line.
+
+INT. HALL - DAY
+The hall is empty.

@@ -1,0 +1,9 @@
+TITLE: Things DexDiffusion reads differently
+
+MAYA: We can leave after this [pause 2s] if you want.
+[pause 500ms]
+[AMB: rain on glass]
+Maya: lowercase name once, while ALL CAPS speakers exist.
+---
+[SFX: floorboard] [pause 1s]
+Remember: this line is prose, not a speaker.

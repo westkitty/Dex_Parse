@@ -13,9 +13,26 @@ A native SwiftUI app was the preferred build. This environment is Debian without
 
 Open the app, paste a script into **Script (original — authoritative)**, and press **Parse**.
 
+## Install it as an app (PWA)
+
+DexParse is an installable progressive web app that works offline.
+
+```sh
+npm ci
+npm run app          # builds, then serves http://127.0.0.1:8081
+```
+
+Open `http://127.0.0.1:8081` in Chrome or Edge and press **Install** in the DexParse header (or the install icon in the address bar). On iPhone or iPad, use Safari's Share > Add to Home Screen on an HTTPS deployment. After the first visit the whole app, including the parser worker, is cached, so it opens and parses with no network, and with the local server stopped.
+
+**Updates:** when a newer build is served, DexParse downloads it in the background and shows **A new version of DexParse is ready**. Press **Reload to update**. Your script is kept. DexParse checks for updates when the window regains focus and once an hour. `npm run dev` never registers the service worker, so development is not cached.
+
+## Send scripts to DexDiffusion
+
+DexDiffusion's **Audio > Script** (Drama) feature has its own parser. DexParse runs an exact port of it in the **DexDiffusion** tab, shows the scenes, cast, cues and pauses DexDiffusion will create, and lists every line the two grammars read differently. **Export for DexDiffusion** writes the exact request DexDiffusion accepts. `node bin/dexparse-dexdiffusion.mjs send <file>` posts it to DexDiffusion on `127.0.0.1:31337`. The details are in [docs/DEXDIFFUSION.md](docs/DEXDIFFUSION.md).
+
 ## What you can do
 
-- Import a UTF-8 `.txt` or `.md` file, or paste text.
+- Import a UTF-8 `.txt` or `.md` file, a DexParse export, or a DexDiffusion drama project or request (`.json`), or paste text.
 - Read the validation line. Green means every character of that parse is classified. The number is the real character count.
 - Inspect blocks, playback order, and diagnostics.
 - Copy JSON or playback text.
@@ -38,6 +55,10 @@ Engine layout:
 | Coverage validator | `src/lib/dexparse/validator.ts` |
 | JSON export | `src/lib/dexparse/serialize.ts` |
 | Ollama adapter | `src/lib/dexparse/ollama.ts` |
+| DexDiffusion Drama parser port | `src/lib/dexparse/dexdiffusion/drama-parse.mjs` |
+| DexDiffusion bridge and difference report | `src/lib/dexparse/dexdiffusion/compat.ts`, `bridge.mjs` |
+| DexDiffusion CLI | `bin/dexparse-dexdiffusion.mjs` |
+| PWA (manifest, icons, service worker) | `public/manifest.webmanifest`, `public/icons/`, `scripts/pwa/`, `src/lib/pwa/use-pwa.ts` |
 | Interface | `src/components/dexparse/dex-parse-app.tsx` |
 | Tests | `src/lib/dexparse/parser.test.ts` |
 | 6,667-character fixture | `src/lib/dexparse/fixtures/coverage-6667.txt` |
@@ -60,7 +81,10 @@ From the project directory:
 ```sh
 npm test
 npm run typecheck
+npm run lint
 npm run dev
+npm run app &                                   # production build on 127.0.0.1:8081
+node scripts/pwa/pwa-browser-check.mjs          # installability, offline reload, update flow (headless Chrome)
 ```
 
-`npm test` includes the DexParse suite: every supported form, prose colons, Unicode, LF and CRLF, unknown cues, bad pause durations, the 6,667-character fixture, JSON reconstruction, and malformed or unreachable Ollama responses.
+`npm test` also runs the DexDiffusion golden and round-trip tests, the CLI tests, and the manifest and service-worker tests. It includes the DexParse suite: every supported form, prose colons, Unicode, LF and CRLF, unknown cues, bad pause durations, the 6,667-character fixture, JSON reconstruction, and malformed or unreachable Ollama responses.

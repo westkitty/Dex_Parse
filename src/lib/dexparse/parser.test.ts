@@ -262,7 +262,7 @@ describe("integrity", () => {
 
 describe("ollama adapter", () => {
   it("parses deterministically when Ollama is never called", () => {
-    let called = false;
+    const called = false;
     const parsed = parseDocument("MAYA: Still local.\n");
     assert.equal(called, false);
     assert.equal(parsed.validation.status, "verified");

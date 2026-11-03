@@ -307,8 +307,8 @@ function injectGrokPwaHead(html, ctx = {}) {
 	let next = stripShareMetaTags(html);
 	if (!readGrokExtensionsEnabled()) next = stripGrokExtensionsScript(next);
 	const missing = grokPwaHeadTags(appName).filter(([key]) => {
-		if (key === "manifest") return !next.includes("href=\"/__grok/manifest.webmanifest\"");
-		if (key === "apple-touch-icon") return !next.includes("href=\"/__grok/icon-180.png\"");
+		if (key === "manifest") return !/rel=["']?manifest["'\s>]/i.test(next);
+		if (key === "apple-touch-icon") return !/rel=["']?apple-touch-icon["'\s>]/i.test(next);
 		return !next.includes(`name="${key}"`);
 	}).map(([, tag]) => tag);
 	next = insertAfterHeadOpen(next, grokOgHeadTags({
@@ -463,11 +463,11 @@ var findRouteRules = /* @__PURE__ */ (() => {
 		return r;
 	};
 })();
-var _lazy_IO091Z = defineLazyEventHandler(() => import("./_chunks/ssr-renderer.mjs"));
+var _lazy_U_haNf = defineLazyEventHandler(() => import("./_chunks/ssr-renderer.mjs"));
 var findRoute = /* @__PURE__ */ (() => {
 	const data = {
 		route: "/**",
-		handler: _lazy_IO091Z
+		handler: _lazy_U_haNf
 	};
 	return ((_m, p) => {
 		return {

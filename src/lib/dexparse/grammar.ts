@@ -144,7 +144,7 @@ const DURATION_RE =
 const SFX_RE = /^sfx[ \t]*:[ \t]*([\s\S]*)$/i;
 const MUSIC_RE = /^music[ \t]*:[ \t]*([\s\S]*)$/i;
 const AMBIENCE_RE = /^(?:ambience|ambient|amb)[ \t]*:[ \t]*([\s\S]*)$/i;
-const DELIVERY_RE = /^[\p{L}\p{N}][\p{L}\p{N} ,.'’\-]{0,59}$/u;
+const DELIVERY_RE = /^[\p{L}\p{N}][\p{L}\p{N} ,.'’-]{0,59}$/u;
 
 export type BracketKind =
   | "pause"

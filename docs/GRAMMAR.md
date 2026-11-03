@@ -46,3 +46,7 @@ Compound dialogue keeps one parent span for the whole line, including its newlin
 - Brackets the grammar does not know are not guessed into sound or dialogue.
 - Text inside the script cannot change the endpoint, export a file, or run a command.
 - The optional Ollama adapter may suggest a classification for an unknown or ambiguous span. The suggestion is discarded unless its start and end match that span exactly and it does not replace the raw text. It is applied only after you accept it.
+
+## DexDiffusion
+
+DexDiffusion's Audio > Script (Drama) parser uses a different grammar. The **DexDiffusion** tab shows exactly how it reads the same text and lists the differences. See [DEXDIFFUSION.md](./DEXDIFFUSION.md).

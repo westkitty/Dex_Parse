@@ -1,5 +1,5 @@
-import { n as parseDocument } from "./routes-Ci3kuLr5.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/parse-off-thread-kSRUpgPq.js
+import { n as parseDocument } from "./routes-DVIdVZPP.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/parse-off-thread-DqFQv-hz.js
 /**
 * Yields a frame, then parses off the UI thread when Worker is available.
 * Falls back to the same deterministic parser on the main thread.
