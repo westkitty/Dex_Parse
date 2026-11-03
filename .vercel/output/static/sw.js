@@ -1,12 +1,12 @@
 /* DexParse service worker. Generated at build time by scripts/pwa/sw-plugin.mjs; do not edit the built copy. */
-const VERSION = "48d1194bfdd7";
+const VERSION = "67a994e66ff4";
 const PRECACHE = [
   "/",
   "/__grok/icon-180.png",
-  "/assets/index-C97CnH26.js",
-  "/assets/parse-off-thread-BSrSyEXq.js",
+  "/assets/index-CgtfAb6k.js",
+  "/assets/parse-off-thread-C7Ikl4kg.js",
   "/assets/parse.worker-o212cu72.js",
-  "/assets/routes-C-fv0kDQ.js",
+  "/assets/routes-DzqBDLkA.js",
   "/assets/styles-CdZQI2Ac.css",
   "/favicon.svg",
   "/icons/apple-touch-icon.png",
@@ -21,14 +21,17 @@ const PRECACHE = [
 ];
 const PREFIX = "dexparse-";
 const CACHE = PREFIX + VERSION;
-const SHELL = "/";
-const OFFLINE = "/offline.html";
+// Everything is relative to the worker's scope: "/" locally, "/Dex_Parse/" on GitHub Pages.
+const SCOPE = new URL(self.registration.scope).pathname;
+const at = (path) => SCOPE + path.replace(/^\//, "");
+const SHELL = SCOPE;
+const OFFLINE = at("/offline.html");
 const NAV_TIMEOUT_MS = 4000;
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE).then((cache) =>
-      cache.addAll(PRECACHE.map((url) => new Request(url, { cache: "reload" }))),
+      cache.addAll(PRECACHE.map((url) => new Request(at(url), { cache: "reload" }))),
     ),
   );
   // A first install takes control at once; an update waits for the page to say so (update banner).
@@ -92,12 +95,12 @@ self.addEventListener("fetch", (event) => {
   if (request.method !== "GET") return;
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
-  if (url.pathname.startsWith("/api/") || url.pathname === "/sw.js") return;
+  if (url.pathname.startsWith(at("/api/")) || url.pathname === at("/sw.js")) return;
   if (request.mode === "navigate") {
     event.respondWith(navigation(request));
     return;
   }
-  if (url.pathname.startsWith("/assets/")) {
+  if (url.pathname.startsWith(at("/assets/"))) {
     event.respondWith(cacheFirst(request));
     return;
   }

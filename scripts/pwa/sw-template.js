@@ -4,14 +4,17 @@ const VERSION = "__DEXPARSE_SW_VERSION__";
 const PRECACHE = __DEXPARSE_SW_PRECACHE__;
 const PREFIX = "dexparse-";
 const CACHE = PREFIX + VERSION;
-const SHELL = "/";
-const OFFLINE = "/offline.html";
+// Everything is relative to the worker's scope: "/" locally, "/Dex_Parse/" on GitHub Pages.
+const SCOPE = new URL(self.registration.scope).pathname;
+const at = (path) => SCOPE + path.replace(/^\//, "");
+const SHELL = SCOPE;
+const OFFLINE = at("/offline.html");
 const NAV_TIMEOUT_MS = 4000;
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE).then((cache) =>
-      cache.addAll(PRECACHE.map((url) => new Request(url, { cache: "reload" }))),
+      cache.addAll(PRECACHE.map((url) => new Request(at(url), { cache: "reload" }))),
     ),
   );
   // A first install takes control at once; an update waits for the page to say so (update banner).
@@ -75,12 +78,12 @@ self.addEventListener("fetch", (event) => {
   if (request.method !== "GET") return;
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
-  if (url.pathname.startsWith("/api/") || url.pathname === "/sw.js") return;
+  if (url.pathname.startsWith(at("/api/")) || url.pathname === at("/sw.js")) return;
   if (request.mode === "navigate") {
     event.respondWith(navigation(request));
     return;
   }
-  if (url.pathname.startsWith("/assets/")) {
+  if (url.pathname.startsWith(at("/assets/"))) {
     event.respondWith(cacheFirst(request));
     return;
   }

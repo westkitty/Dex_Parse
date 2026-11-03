@@ -49,6 +49,7 @@ page.on("console", (m) => {
   if (m.type() === "error" && !/grok-app-builder\/extensions\.js|ERR_INTERNET_DISCONNECTED/.test(m.text())) consoleErrors.push(m.text());
 });
 page.on("pageerror", (e) => consoleErrors.push(String(e)));
+page.on("requestfailed", (r) => process.env.DEBUG_PWA && console.log("requestfailed", r.url(), r.failure()?.errorText));
 
 await page.goto(BASE + "/", { waitUntil: "networkidle" });
 await page.waitForFunction(() => navigator.serviceWorker && navigator.serviceWorker.controller, null, { timeout: 15000 }).catch(() => {});
@@ -79,7 +80,8 @@ check(
 );
 check("maskable 512 icon declared", (parsed.icons || []).some((i) => i.purpose === "maskable" && i.sizes === "512x512"));
 const appleIcon = await page.locator('link[rel="apple-touch-icon"]').getAttribute("href");
-check("apple-touch-icon link present", appleIcon === "/icons/apple-touch-icon.png", appleIcon);
+// Base-aware: "/icons/…" locally, "/Dex_Parse/icons/…" on GitHub Pages.
+check("apple-touch-icon link present", /^(\/[^/]+)*\/icons\/apple-touch-icon\.png$/.test(appleIcon ?? ""), appleIcon);
 check("only one manifest link", (await page.locator('link[rel="manifest"]').count()) === 1);
 
 // Load a script with known DexDiffusion differences, parse, inspect the DexDiffusion tab.
@@ -106,7 +108,7 @@ await page.reload({ waitUntil: "domcontentloaded" });
 await page.getByRole("button", { name: /^Parse/ }).waitFor({ timeout: 10000 });
 check("app shell reloads with the network off", await page.getByText("Offline script classification").isVisible());
 const networkOff = await page.evaluate(() =>
-  fetch("/api/__dexparse_offline_probe", { cache: "no-store" }).then(
+  fetch("api/__dexparse_offline_probe", { cache: "no-store" }).then(
     () => false,
     () => true,
   ),

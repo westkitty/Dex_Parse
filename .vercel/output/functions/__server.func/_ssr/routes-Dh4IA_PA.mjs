@@ -1,8 +1,8 @@
 import { i as __toESM } from "../_runtime.mjs";
 import { K as require_react, b as require_jsx_runtime } from "../_libs/@tanstack/react-router+[...].mjs";
 import { a as FolderOpen, c as Check, i as MonitorDown, l as AudioLines, n as TriangleAlert, o as Download, r as RefreshCw, s as ClipboardCopy, t as WifiOff } from "../_libs/lucide-react.mjs";
-import { n as previewPathPrefix, r as __exportAll } from "./router-DFk4QGxj.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-DVIdVZPP.js
+import { n as previewPathPrefix, r as __exportAll } from "./router-BJJ6GnSD.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-Dh4IA_PA.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 /**
@@ -1348,7 +1348,7 @@ function buildDexDiffusionView(text, segments, options = {}) {
 	};
 }
 var UPDATE_CHECK_MS = 36e5;
-/** Register /sw.js in production builds only, and never inside path-prefixed preview hosts. */
+/** Register <base>sw.js in production builds only, and never inside path-prefixed preview hosts. */
 function shouldRegisterServiceWorker(env) {
 	if (!env.prod || !env.hasServiceWorker || !env.secure) return false;
 	return !previewPathPrefix(env.hostname, env.pathname);
@@ -1402,7 +1402,7 @@ function usePwa() {
 				setOfflineReady(true);
 				if (reloading.current) window.location.reload();
 			});
-			sw.register("/sw.js", { scope: "/" }).then((registration) => {
+			sw.register(`/sw.js`, { scope: "/" }).then((registration) => {
 				if (sw.controller) setOfflineReady(true);
 				sw.ready.then(() => {
 					if (sw.controller) setOfflineReady(true);
@@ -2056,7 +2056,7 @@ function DexParseApp() {
 		setRejected([]);
 		setCopyState(null);
 		try {
-			const { parseOffThread } = await import("./parse-off-thread-DqFQv-hz.mjs");
+			const { parseOffThread } = await import("./parse-off-thread-pvI5ZKF9.mjs");
 			const next = await parseOffThread(script);
 			if (mode === "ollama") {
 				if (ambiguousTargets(next).length === 0) setOllamaNote("Every span already has a deterministic classification. No model call was made.");

@@ -13,9 +13,13 @@ A native SwiftUI app was the preferred build. This environment is Debian without
 
 Open the app, paste a script into **Script (original — authoritative)**, and press **Parse**.
 
+## Live app
+
+**https://westkitty.github.io/Dex_Parse/** — open it in Chrome, Edge or Safari and install it. It is the same offline PWA, built by `.github/workflows/pages.yml` on every push to `main` (`npm run build:pages`, which sets the base path `/Dex_Parse/` and prerenders the page). Nothing you paste leaves the browser.
+
 ## Install it as an app (PWA)
 
-DexParse is an installable progressive web app that works offline.
+DexParse is an installable progressive web app that works offline, either from the live URL above or locally:
 
 ```sh
 npm ci

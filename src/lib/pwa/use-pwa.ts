@@ -23,7 +23,7 @@ export interface PwaState {
 
 const UPDATE_CHECK_MS = 60 * 60 * 1000;
 
-/** Register /sw.js in production builds only, and never inside path-prefixed preview hosts. */
+/** Register <base>sw.js in production builds only, and never inside path-prefixed preview hosts. */
 export function shouldRegisterServiceWorker(env: {
   prod: boolean;
   hasServiceWorker: boolean;
@@ -88,7 +88,7 @@ export function usePwa(): PwaState {
         setOfflineReady(true);
         if (reloading.current) window.location.reload();
       });
-      sw.register("/sw.js", { scope: "/" })
+      sw.register(`${import.meta.env.BASE_URL}sw.js`, { scope: import.meta.env.BASE_URL })
         .then((registration) => {
           if (sw.controller) setOfflineReady(true);
           void sw.ready.then(() => {
