@@ -23,9 +23,16 @@ describe("web app manifest", () => {
     assert.equal(manifest.name, "DexParse");
     assert.equal(manifest.short_name, "DexParse");
     assert.equal(manifest.display, "standalone");
-    assert.equal(manifest.scope, "/");
-    assert.ok(manifest.start_url.startsWith("/"));
-    assert.equal(manifest.id, "/");
+    // Relative to the manifest URL, so the same file works at "/" and "/Dex_Parse/".
+    assert.equal(manifest.scope, "./");
+    assert.ok(manifest.start_url.startsWith("./"));
+    assert.equal(manifest.id, "./");
+    for (const base of ["http://127.0.0.1:8081/", "https://westkitty.github.io/Dex_Parse/"]) {
+      const at = (u) => new URL(u, new URL("manifest.webmanifest", base)).href;
+      assert.equal(at(manifest.scope), base);
+      assert.ok(at(manifest.start_url).startsWith(base));
+      for (const icon of manifest.icons) assert.ok(at(icon.src).startsWith(base + "icons/"), icon.src);
+    }
     assert.match(manifest.theme_color, /^#[0-9a-f]{6}$/i);
     assert.match(manifest.background_color, /^#[0-9a-f]{6}$/i);
   });
@@ -62,11 +69,34 @@ describe("service worker build", () => {
     assert.match(a.source, new RegExp(`const VERSION = "${a.version}"`));
   });
 
+  it("resolves its shell and precache against its own scope (root and GitHub Pages subpath)", () => {
+    const { source } = renderServiceWorker(template, ["/", "/offline.html"]);
+    for (const [scope, path] of [
+      ["http://127.0.0.1:8081/", "/"],
+      ["https://westkitty.github.io/Dex_Parse/", "/Dex_Parse/"],
+    ]) {
+      const sandbox = {
+        self: { addEventListener() {}, registration: { scope }, location: { origin: new URL(scope).origin } },
+        caches: {},
+        URL,
+        Request: class {},
+        Response: { error: () => null },
+        setTimeout,
+      };
+      vm.runInNewContext(source + "\n;globalThis.__t = { SHELL, OFFLINE, at, PRECACHE };", sandbox);
+      const t = sandbox.__t;
+      assert.equal(t.SHELL, path);
+      assert.equal(t.OFFLINE, path + "offline.html");
+      assert.equal(JSON.stringify(t.PRECACHE.map(t.at)), JSON.stringify([path, path + "offline.html"]));
+      assert.equal(t.at("/assets/x.js"), path + "assets/x.js");
+    }
+  });
+
   it("is valid script whose handlers cover install, activate, fetch and update messages", () => {
     const { source } = renderServiceWorker(template, ["/", "/offline.html"]);
     const events = [];
     const sandbox = {
-      self: { addEventListener: (type) => events.push(type), registration: {}, location: { origin: "http://127.0.0.1" } },
+      self: { addEventListener: (type) => events.push(type), registration: { scope: "http://127.0.0.1/" }, location: { origin: "http://127.0.0.1" } },
       caches: {},
       URL,
       Request: class {},

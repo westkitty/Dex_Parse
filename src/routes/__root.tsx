@@ -3,6 +3,9 @@ import { AuthProvider } from "@/lib/auth/provider";
 import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import appCss from "../styles.css?url";
 
+/** Vite base ("/" locally, "/Dex_Parse/" on GitHub Pages). Always ends with "/". */
+const BASE = import.meta.env.BASE_URL;
+
 const APP_NAME = "DexParse";
 
 export const Route = createRootRoute({
@@ -23,11 +26,11 @@ export const Route = createRootRoute({
       { name: "mobile-web-app-capable", content: "yes" },
     ],
     links: [
-      { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
-      { rel: "icon", type: "image/png", sizes: "192x192", href: "/icons/icon-192.png" },
+      { rel: "icon", type: "image/svg+xml", href: `${BASE}favicon.svg` },
+      { rel: "icon", type: "image/png", sizes: "192x192", href: `${BASE}icons/icon-192.png` },
       { rel: "stylesheet", href: appCss },
-      { rel: "manifest", href: "/manifest.webmanifest" },
-      { rel: "apple-touch-icon", sizes: "180x180", href: "/icons/apple-touch-icon.png" },
+      { rel: "manifest", href: `${BASE}manifest.webmanifest` },
+      { rel: "apple-touch-icon", sizes: "180x180", href: `${BASE}icons/apple-touch-icon.png` },
     ],
   }),
   component: () => (

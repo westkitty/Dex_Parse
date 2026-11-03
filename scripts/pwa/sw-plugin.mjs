@@ -59,6 +59,8 @@ export function dexParseServiceWorker() {
       const built = Object.keys(bundle)
         .filter((file) => !file.endsWith(".map") && file !== "sw.js" && !file.endsWith(".vite/manifest.json"))
         .map((file) => "/" + file);
+      // Root-relative here; the worker resolves each against its own scope, so the
+      // same sw.js works at "/" (local) and "/Dex_Parse/" (GitHub Pages).
       const urls = ["/", ...publicPrecache(publicDir), ...built];
       const { source, version } = renderServiceWorker(readFileSync(TEMPLATE, "utf8"), urls);
       this.emitFile({ type: "asset", fileName: "sw.js", source });

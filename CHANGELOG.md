@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.2.0 · 2026-11-03
+
+### Added
+
+- **GitHub Pages.** DexParse is live at https://westkitty.github.io/Dex_Parse/. `.github/workflows/pages.yml` runs the tests, builds with `npm run build:pages` and deploys on every push to `main` (and on manual dispatch).
+- `npm run build:pages`: a static build with the base path `/Dex_Parse/` and a prerendered `index.html`, written to `dist-pages/` so the committed local build is untouched.
+
+### Changed
+
+- The app works from any base path. The manifest's `id`, `start_url`, `scope` and icon paths are relative, the service worker resolves its shell, precache, offline page and `/api/` bypass against its own scope, the page registers `<base>sw.js` with scope `<base>`, and head links use Vite's `BASE_URL`. Local use (`npm run app` on `http://127.0.0.1:8081`) is unchanged.
+- The headless Chrome PWA check accepts a subpath `--url`.
+
 ## 1.1.0 · 2026-11-02
 
 ### Added
